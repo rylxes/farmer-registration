@@ -1,0 +1,71 @@
+package com.register.farmerregistration;
+
+
+import com.register.farmerregistration.util.I18N;
+import com.register.farmerregistration.util.WindowsUtils;
+import javafx.application.Application;
+import javafx.application.HostServices;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.stereotype.Controller;
+
+@Controller
+@SpringBootApplication
+@EnableScheduling
+public class FarmerRegistrationApplication extends Application {
+
+    private static final Logger log = LoggerFactory.getLogger(FarmerRegistrationApplication.class);
+    private Scene scene;
+
+
+    public static void main(final String[] args) {
+        launch(FarmerRegistrationApplication.class, args);
+    }
+
+
+    public static ConfigurableApplicationContext springContext;
+    public static I18N i18n;
+    public static HostServices hostServices;
+
+    @Override
+    public void init() throws Exception {
+        springContext = SpringApplication.run(FarmerRegistrationApplication.class);
+
+        initI18N();
+    }
+
+    private void initI18N() {
+        i18n = new I18N(I18N.ENGLISH);
+
+
+    }
+
+    @Override
+    public void stop() throws Exception {
+        springContext.stop();
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+
+        startApplication(stage);
+    }
+
+    private void startApplication(final Stage primaryStage) {
+        try {
+            //WindowsUtils.openNewWindow(primaryStage, AboutController.PATH_FXML, "About", AboutController.PATH_ICON, null);
+            // WindowsUtils.openNewWindow(primaryStage, LoginController.PATH_FXML, "Login", LoginController.PATH_ICON, null);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+}
+
