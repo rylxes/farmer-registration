@@ -66,9 +66,7 @@ public abstract class BaseManager<T, V, S extends BaseRepository<T, V>> {
         return repo.findAll(pageable).getContent();
     }
 
-    public void softDelete(V id) {
-        repo.softDelete(id);
-    }
+
 
     public boolean replace(T model) {
         return save(model);
@@ -180,22 +178,6 @@ public abstract class BaseManager<T, V, S extends BaseRepository<T, V>> {
         return ResultList;
     }
 
-    public void replaceLists(List<T> model) {
-        try {
-            repo.saveAll(model);
-        } catch (Exception ex) {
-            log.error(ex.getMessage());
-        }
-    }
-
-    public T saveModel(T model) {
-        try {
-            return repo.save(model);
-        } catch (Exception ex) {
-            log.error(ex.getMessage());
-            return null;
-        }
-    }
 
     public boolean save(T model) {
         try {

@@ -14,9 +14,9 @@ import java.util.List;
 //@Component
 //@NoRepositoryBean
 public interface BaseRepository<T, S> extends JpaRepository<T, S>, JpaSpecificationExecutor<T> {
-    @Modifying(clearAutomatically = true)
-    @Transactional
-    @Query("UPDATE #{#entityName} SET isDeleted = '1' where id =:id")
-    void softDelete(@Param("id") S id);
+//    @Modifying(clearAutomatically = true)
+//    @Transactional
+//    @Query("UPDATE #{#entityName} SET isDeleted = '1' where id =:id")
+//    void softDelete(@Param("id") S id);
 
 }
