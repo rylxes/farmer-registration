@@ -31,6 +31,7 @@ public class FarmData extends AppModel implements Serializable {
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String userID;
     private String farmlocation;

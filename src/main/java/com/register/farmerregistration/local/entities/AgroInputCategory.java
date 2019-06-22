@@ -32,6 +32,7 @@ public class AgroInputCategory extends AppModel implements Serializable {
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
 
