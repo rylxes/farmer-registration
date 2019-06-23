@@ -36,7 +36,8 @@ public class Contact extends AppModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private Integer userID;
+    @Column(name = "user_id")
+    private Integer userId;
 
 
 

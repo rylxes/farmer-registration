@@ -35,6 +35,11 @@ public class User extends AppModel implements Serializable {
         Inactive
     }
 
+    enum typeENUM {
+        Login,
+        NONLOGIN
+    }
+
     /**
      *
      */
@@ -52,7 +57,8 @@ public class User extends AppModel implements Serializable {
     private String password;
     private String passport;
     private String user_type;
-    private statusEnum status = statusEnum.Active;
+    private String type = typeENUM.NONLOGIN.toString();
+    private String status = statusEnum.Active.toString();
     @Nullable
     private String email_verified_at;
 

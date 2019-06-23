@@ -31,6 +31,7 @@ public abstract class BaseManager<T, V, S extends BaseRepository<T, V>> {
 
     private BaseRepository<T, V> repo;
     private EntityManager centityManager;
+    private long returnedID;
 
     @Autowired
     public void setCentityManager(@Qualifier("entityManagerFactory") EntityManager centityManager) {
@@ -187,6 +188,17 @@ public abstract class BaseManager<T, V, S extends BaseRepository<T, V>> {
             ex.printStackTrace();
             log.error(ex.getMessage());
             return false;
+        }
+    }
+
+
+    public T saveModel(T model) {
+        try {
+            return repo.save(model);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            log.error(ex.getMessage());
+            return null;
         }
     }
 }

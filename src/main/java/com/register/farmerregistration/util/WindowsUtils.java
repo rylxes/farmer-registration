@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.register.farmerregistration.FarmerRegistrationApplication.springContext;
+
 public class WindowsUtils {
 	
 	public static final String BASE_APPLICATION_CSS_PATH = FarmerRegistrationApplication.class.getResource("/css/application.css").toExternalForm();
@@ -53,9 +55,9 @@ public class WindowsUtils {
         stage.getIcons().add(new Image(WindowsUtils.ICON_APP_PATH));
         stage.setTitle(title);
         stage.setResizable(false);
-        
+
         FXMLLoader loader = loadFxml(fxmlPath);
-        
+		//loader.setControllerFactory(springContext::getBean);
         try {
     		Scene scene = new Scene(loader.load());
             scene.getStylesheets().add(BASE_APPLICATION_CSS_PATH);
@@ -76,7 +78,7 @@ public class WindowsUtils {
 		 try (InputStream fxmlStream = WindowsUtils.class.getResourceAsStream(url)) {
 			 FXMLLoader loader = new FXMLLoader();
 			 loader.setLocation(WindowsUtils.class.getResource(url));
-			 loader.setControllerFactory( clazz -> { return FarmerRegistrationApplication.springContext.getBean(clazz);});
+			 loader.setControllerFactory( clazz -> { return springContext.getBean(clazz);});
 			 loader.setResources(FarmerRegistrationApplication.i18n.getBundle());  
 			 
 			 return loader;

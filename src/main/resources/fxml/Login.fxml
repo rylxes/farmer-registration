@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.Group?>
+
+
+<Group fx:id="groupContent" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
+       fx:controller="com.register.farmerregistration.controller.LoginController">
+    <children>
+        <AnchorPane fx:id="acContent" maxHeight="400.0" maxWidth="517.0" minHeight="400.0" minWidth="517.0"
+                    prefHeight="400.0" prefWidth="517.0">
+            <children>
+                <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                      prefHeight="500.0" prefWidth="750.0" stylesheets="@../style/new-style/login.css">
+                    <children>
+                        <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0"
+                              prefWidth="355.0" styleClass="left-box" HBox.hgrow="ALWAYS">
+                            <padding>
+                                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0"/>
+                            </padding>
+                        </VBox>
+                        <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="355.0"
+                              styleClass="right-box" HBox.hgrow="ALWAYS">
+                            <padding>
+                                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0"/>
+                            </padding>
+                            <children>
+                                <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="355.0" spacing="10.0"
+                                      VBox.vgrow="NEVER">
+                                    <children>
+                                        <Button mnemonicParsing="false" fx:id="btnMinimize"
+                                                onAction="#btnMinimizeOnAction" prefHeight="25.0" prefWidth="25.0"
+                                                styleClass="minus-button"/>
+                                        <Button mnemonicParsing="false" fx:id="btnClose" onAction="#btnCloseOnAction"
+                                                prefHeight="25.0" prefWidth="25.0" styleClass="close-button"/>
+                                    </children>
+                                </HBox>
+                                <VBox alignment="CENTER" prefHeight="450.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                                    <children>
+                                        <Label styleClass="sign-in" text="Sign In">
+                                            <VBox.margin>
+                                                <Insets/>
+                                            </VBox.margin>
+                                        </Label>
+                                        <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                                  minWidth="-Infinity" prefWidth="300.0">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES"/>
+                                                <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES"/>
+                                                <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES"/>
+                                            </rowConstraints>
+                                            <children>
+                                                <Separator maxHeight="-Infinity" maxWidth="-Infinity"
+                                                           minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0"
+                                                           prefWidth="300.0" GridPane.halignment="CENTER"
+                                                           GridPane.valignment="BOTTOM"/>
+                                                <Separator maxHeight="-Infinity" maxWidth="-Infinity"
+                                                           minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0"
+                                                           prefWidth="300.0" GridPane.halignment="CENTER"
+                                                           GridPane.rowIndex="1" GridPane.valignment="BOTTOM"/>
+                                                <!--<TextField fx:id="tfUserName" onAction="#pfUserPassOnHitEnter" promptText="User Name" GridPane.columnSpan="2" />-->
+
+                                                <TextField fx:id="tfUserName" prefHeight="32.0" prefWidth="300.0"
+                                                           promptText="Email" GridPane.valignment="BOTTOM"/>
+                                                <PasswordField fx:id="pfUserPassword" onAction="#pfUserPassOnHitEnter"
+                                                               prefHeight="32.0" prefWidth="300.0" promptText="Password"
+                                                               GridPane.rowIndex="1" GridPane.valignment="BOTTOM"/>
+
+                                                <Button fx:id="btnUserNameTfClear" mnemonicParsing="false"
+                                                        prefHeight="31.0" prefWidth="29.0"
+                                                        stylesheets="@../style/btnOnText.css" GridPane.columnSpan="2"
+                                                        GridPane.halignment="RIGHT"/>
+                                                <Button fx:id="btnPassFieldClear" mnemonicParsing="false"
+                                                        prefHeight="31.0" prefWidth="29.0"
+                                                        stylesheets="@../style/btnOnText.css" GridPane.columnSpan="2"
+                                                        GridPane.halignment="RIGHT" GridPane.rowIndex="1"/>
+
+                                                <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
+                                                      minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0"
+                                                      prefWidth="300.0" spacing="30.0" GridPane.rowIndex="2"
+                                                      GridPane.valignment="BOTTOM">
+                                                    <children>
+                                                        <Label fx:id="statusLabel" styleClass="log-status"
+                                                               layoutX="114.0" layoutY="66.0" text="Status"/>
+                                                        <Button mnemonicParsing="false" fx:id="btnLogin"
+                                                                prefHeight="25.0" prefWidth="80.0" styleClass="buttons"
+                                                                text="Login"/>
+                                                        <Button mnemonicParsing="false" fx:id="btnCancel"
+                                                                onAction="#cancelAction" prefHeight="25.0"
+                                                                prefWidth="80.0" styleClass="buttons" text="Cancel"/>
+                                                    </children>
+                                                    <ProgressIndicator fx:id="progressBar" layoutX="96.0"
+                                                                       layoutY="241.0" prefHeight="67.0"
+                                                                       prefWidth="103.0"/>
+                                                </HBox>
+
+                                            </children>
+                                            <VBox.margin>
+                                                <Insets bottom="20.0" top="20.0"/>
+                                            </VBox.margin>
+                                        </GridPane>
+
+                                    </children>
+                                </VBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+
+
+            </children>
+        </AnchorPane>
+    </children>
+</Group>

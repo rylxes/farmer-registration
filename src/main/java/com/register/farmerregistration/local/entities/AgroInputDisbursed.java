@@ -43,7 +43,8 @@ public class AgroInputDisbursed extends AppModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private Integer userID;
+    @Column(name = "user_id")
+    private Integer userId;
     private String input_type;
     private String unit;
     private String variety;

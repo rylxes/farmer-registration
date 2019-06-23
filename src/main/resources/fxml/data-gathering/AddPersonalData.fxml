@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Group xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.register.farmerregistration.controller.DataGathering.AddPersonalDataController">
+    <children>
+        <AnchorPane id="AnchorPane" layoutX="10.0" layoutY="10.0" prefHeight="651.0" prefWidth="702.0">
+            <children>
+                <Label fx:id="lblContent" alignment="CENTER" layoutX="31.0" layoutY="32.0" prefHeight="50.0" prefWidth="629.0" text="CONTENT">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+            <VBox layoutX="6.0" layoutY="3.0" prefHeight="642.0" prefWidth="669.0" spacing="10.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="55.0" spacing="10.0">
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox prefHeight="51.0" prefWidth="460.0" spacing="10.0">
+                     <children>
+                        <VBox prefHeight="48.0" prefWidth="318.0">
+                           <children>
+                              <VBox prefHeight="50.0" prefWidth="285.0">
+                                 <children>
+                                    <Label text="Title" />
+                                    <ComboBox fx:id="title" editable="true" prefHeight="33.0" prefWidth="233.0" promptText="Select Title" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="50.0" prefWidth="285.0">
+                           <children>
+                              <Label text="Gender" />
+                              <ComboBox fx:id="gender" editable="true" prefHeight="33.0" prefWidth="233.0" promptText="Select Gender" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0" prefHeight="48.0" prefWidth="303.0">
+                           <children>
+                              <Label text="Name" />
+                              <TextField fx:id="name" promptText="Enter Name" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="51.0" prefWidth="460.0" spacing="10.0">
+                     <children>
+                        <VBox prefHeight="48.0" prefWidth="303.0">
+                           <children>
+                              <Label text="Residence" />
+                              <TextField fx:id="resident" promptText="Enter Residence" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="48.0" prefWidth="318.0">
+                           <children>
+                              <Label text="Town" />
+                              <TextField fx:id="town" promptText="Enter Town" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <VBox prefHeight="55.0">
+                     <children>
+                        <Label text="Farm Address" />
+                        <TextArea fx:id="farmaddress" prefHeight="50.0" prefWidth="200.0" promptText="Enter Farm addres" />
+                     </children>
+                  </VBox>
+                  <HBox prefHeight="50.0" prefWidth="627.0" spacing="10.0">
+                     <children>
+                        <VBox prefHeight="50.0" prefWidth="285.0">
+                           <children>
+                              <Label text="State" />
+                              <ComboBox fx:id="stateId" editable="true" prefHeight="33.0" prefWidth="233.0" promptText="Select State" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="285.0">
+                           <children>
+                              <Label text="Local Govt" />
+                              <ComboBox fx:id="lga" editable="true" prefHeight="33.0" prefWidth="233.0" promptText="Select Local Govt" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="51.0" prefWidth="460.0" spacing="10.0">
+                     <children>
+                        <VBox prefHeight="48.0" prefWidth="303.0">
+                           <children>
+                              <Label text="Phone" />
+                              <TextField fx:id="phone_no" promptText="Enter mobile number" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="48.0" prefWidth="318.0">
+                           <children>
+                              <Label text="BVN" />
+                              <TextField fx:id="BVN" promptText="BVN" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <Separator prefWidth="200.0" />
+                  <HBox alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="460.0" spacing="10.0">
+                     <children>
+                        <Button fx:id="btnSave" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="25.0" prefWidth="90.0" text="Save" />
+                        <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefWidth="94.0" text="Update" />
+                     </children>
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+            </VBox>
+            </children>
+            <stylesheets>
+                <URL value="@../../style/PopUp.css" />
+                <URL value="@../../style/MainStyle.css" />
+            </stylesheets>
+        </AnchorPane>
+        <Button fx:id="btnClose" layoutX="450.0" layoutY="-3.0" mnemonicParsing="false" onAction="#btnCloseOnAction" prefHeight="30.0" prefWidth="27.0" stylesheets="@../../style/btnOnText.css" />
+    </children>
+</Group>

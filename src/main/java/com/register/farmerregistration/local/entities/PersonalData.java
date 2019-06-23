@@ -6,11 +6,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.envers.Audited;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
-
 
 
 @Entity
@@ -22,55 +22,62 @@ import java.io.Serializable;
 @ToString
 @Table(name = "personal_data")
 public class PersonalData extends AppModel implements Serializable {
-    /**
-     *
-     */
-    private static final long serialVersionUID = -6856689286048420607L;
-
-    /**
-     *
-     */
-    @SuppressWarnings("unused")
-    private static final long serialVersionUID1 = 1L;
 
 
-    enum titleEnum {
+    public enum titleEnum {
         MR,
         MRS,
         MISS
     }
 
 
-    enum genderEnum {
+    public enum genderEnum {
         MALE,
         FEMALE
     }
 
-    private static String MR = "Mr";
-    private static String MRS = "Mrs";
-    private static String MISS = "Miss";
-
     // Data members
 
     @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "data_generator")
+    @SequenceGenerator(name = "data_generator", sequenceName = "data_seq", allocationSize = 50)
+    @Column(name = "id", updatable = false, nullable = false)
+    Integer id;
 
-    private Integer userID;
-    private titleEnum title = titleEnum.MR;
+    @Column(name = "user_id")
+    private Integer userId;
+    private String title = titleEnum.MR.toString();
+    private String gender = genderEnum.MALE.toString();
     private String name;
     private String town;
     private String lga;
+    private String farmaddress;
+    private String resident;
+
     private Integer state_id;
+
+
     private String phone_no;
     private String bio;
     private String passport;
     private String BVN;
-    private flagEnum flag = flagEnum.Active;
+    private String flag = flagEnum.Active.toString();
     private String createdAt;
     private String updatedAt;
 
+
+    @Nullable
+    @NotFound(action = NotFoundAction.IGNORE)
+    @ManyToOne
+    @JoinColumn(insertable = false, updatable = false, name = "state_id")
+    private State state;
+
+
+    @Nullable
+    @NotFound(action = NotFoundAction.IGNORE)
+    @ManyToOne
+    @JoinColumn(insertable = false, updatable = false, name = "lga")
+    private LocalGovt localGovt;
 
     @Transient
     private String error;

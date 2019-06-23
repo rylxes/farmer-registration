@@ -1,10 +1,12 @@
 package com.register.farmerregistration;
 
 
+import com.register.farmerregistration.controller.DataGathering.PersonalDataController;
 import com.register.farmerregistration.util.I18N;
 import com.register.farmerregistration.util.WindowsUtils;
 import javafx.application.Application;
 import javafx.application.HostServices;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
@@ -59,8 +61,13 @@ public class FarmerRegistrationApplication extends Application {
 
     private void startApplication(final Stage primaryStage) {
         try {
+
+//            FXMLLoader fXMLLoader = new FXMLLoader();
+//            fXMLLoader.setControllerFactory(springContext::getBean);
+//            fXMLLoader.load(this.getClass().getResource(PersonalDataController.PATH_FXML).openStream());
+//
             //WindowsUtils.openNewWindow(primaryStage, AboutController.PATH_FXML, "About", AboutController.PATH_ICON, null);
-            // WindowsUtils.openNewWindow(primaryStage, LoginController.PATH_FXML, "Login", LoginController.PATH_ICON, null);
+             WindowsUtils.openNewWindow(primaryStage, PersonalDataController.PATH_FXML, "Personal Data", PersonalDataController.PATH_ICON, null);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

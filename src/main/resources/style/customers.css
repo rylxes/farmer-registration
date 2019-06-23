@@ -1,0 +1,7 @@
+#editCust {
+    /*-fx-background-image: url("Add.png");*/
+    -fx-background-size: 18 18;
+    -fx-background-color: green;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:left;
+}
