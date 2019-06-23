@@ -1,9 +1,11 @@
 package com.register.farmerregistration.controller.DataGathering;
 
 
-import com.register.farmerregistration.local.entities.PersonalData;
+import com.register.farmerregistration.local.entities.FarmData;
+import com.register.farmerregistration.local.entities.FarmData;
 import com.register.farmerregistration.local.entities.User;
-import com.register.farmerregistration.local.managers.PersonalDataManager;
+import com.register.farmerregistration.local.managers.FarmDataManager;
+import com.register.farmerregistration.local.managers.FarmDataManager;
 import com.register.farmerregistration.local.managers.UserManager;
 import com.register.farmerregistration.util.ComboItems;
 import com.register.farmerregistration.util.ItemContent;
@@ -34,11 +36,11 @@ public class AddFarmDataController implements Initializable {
     private String usrId;
     public long dataID;
     @FXML
-    private TextField name, resident, town, BVN, phone_no = new TextField();
+    private TextField coord_a_longitude, coord_a_latitude, soil_type, no_of_hectares = new TextField();
     @FXML
-    private ComboBox<ItemContent> title, gender, lga, stateId = new ComboBox<>();
+    private ComboBox<ItemContent> userId = new ComboBox<>();
     @FXML
-    private TextArea farmaddress = new TextArea();
+    private TextArea farmlocation = new TextArea();
     @FXML
     Label lblContent;
     @FXML
@@ -56,10 +58,7 @@ public class AddFarmDataController implements Initializable {
 
 
     @Autowired
-    PersonalDataManager personalDataManager;
-
-    @Autowired
-    UserManager userManager;
+    FarmDataManager personalDataManager;
 
     @Autowired
     ComboItems comboItems;
@@ -70,33 +69,21 @@ public class AddFarmDataController implements Initializable {
 
 
     public void initialize(URL url, ResourceBundle rb) {
-        comboItems.setStateLgaCombo(stateId, lga);
-        comboItems.setTitleCombo(title);
-        comboItems.setGenderCombo(gender);
+        comboItems.setUserCombo(userId);
     }
 
     @FXML
     private void btnSaveOnAction(ActionEvent event) throws ParseException {
         Long id = 0L;
         try {
-            User user = new User();
-            user.setName(name.getText());
-            User result = userManager.saveModel(user);
-            if (result != null) {
-                PersonalData personalDataH = new PersonalData();
-                personalDataH.setTitle(comboItems.changeComboBox(title));
-                personalDataH.setGender(comboItems.changeComboBox(gender));
-                personalDataH.setName(name.getText());
-                personalDataH.setResident(resident.getText());
-                personalDataH.setTown(town.getText());
-                personalDataH.setFarmaddress(farmaddress.getText());
-                personalDataH.setState_id(((int) comboItems.changeComboBoxLong(stateId)));
-                personalDataH.setLga((comboItems.changeComboBox(lga)));
-                personalDataH.setBVN(BVN.getText());
-                personalDataH.setPhone_no(phone_no.getText());
-                personalDataH.setUserId(((int) result.getId()));
-                personalDataManager.save(personalDataH, btnSave);
-            }
+            FarmData dataH = new FarmData();
+            dataH.setNo_of_hectares(no_of_hectares.getText());
+            dataH.setCoord_a_longitude(coord_a_longitude.getText());
+            dataH.setCoord_a_latitude(coord_a_latitude.getText());
+            dataH.setFarmlocation(farmlocation.getText());
+            dataH.setSoil_type(soil_type.getText());
+            dataH.setUserId(comboItems.changeComboBoxLong(userId));
+            personalDataManager.save(dataH, btnSave);
 
 
         } catch (Exception ex) {
@@ -112,19 +99,15 @@ public class AddFarmDataController implements Initializable {
         Boolean issaved = false;
         try {
 
-            PersonalData personalDataH = new PersonalData();
-            personalDataH.setTitle(comboItems.changeComboBox(title));
-            personalDataH.setGender(comboItems.changeComboBox(gender));
-            personalDataH.setName(name.getText());
-            personalDataH.setResident(resident.getText());
-            personalDataH.setTown(town.getText());
-            personalDataH.setFarmaddress(farmaddress.getText());
-            personalDataH.setState_id(((int) comboItems.changeComboBoxLong(stateId)));
-            personalDataH.setLga((comboItems.changeComboBox(lga)));
-            personalDataH.setBVN(BVN.getText());
-            personalDataH.setPhone_no(phone_no.getText());
-            personalDataH.setId(((int) dataID));
-            personalDataManager.update(personalDataH, btnSave);
+            FarmData dataH = new FarmData();
+            dataH.setNo_of_hectares(no_of_hectares.getText());
+            dataH.setCoord_a_longitude(coord_a_longitude.getText());
+            dataH.setCoord_a_latitude(coord_a_latitude.getText());
+            dataH.setFarmlocation(farmlocation.getText());
+            dataH.setSoil_type(soil_type.getText());
+            dataH.setUserId(comboItems.changeComboBoxLong(userId));
+            dataH.setId(((int) dataID));
+            personalDataManager.update(dataH, btnSave);
 
         } catch (Exception ex) {
             ex.getStackTrace();
@@ -143,17 +126,16 @@ public class AddFarmDataController implements Initializable {
         try {
 
 
-            PersonalData theData = personalDataManager.findById(this.dataID);
+            FarmData theData = personalDataManager.findById(this.dataID);
 
 
-            name.setText(theData.getName());
-            resident.setText(theData.getName());
-            town.setText(theData.getTown());
-            farmaddress.setText(theData.getFarmaddress());
-            BVN.setText(theData.getBVN());
-            phone_no.setText(theData.getPhone_no());
+            no_of_hectares.setText(theData.getNo_of_hectares());
+            coord_a_longitude.setText(theData.getCoord_a_longitude());
+            coord_a_latitude.setText(theData.getCoord_a_latitude());
+            farmlocation.setText(theData.getFarmlocation());
+            soil_type.setText(theData.getSoil_type());
 
-            comboItems.loadCombo(stateId, lga, theData.getState_id(), theData.getLga());
+            comboItems.loadUser(userId, theData.getUserId());
         } catch (Exception ex) {
             log.error("Exception caught", ex);
         }

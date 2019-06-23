@@ -40,17 +40,17 @@ public class FarmData extends AppModel implements Serializable {
 
 
 
-    private Integer userId;
+    private Long userId;
     private String farmlocation;
     private String no_of_hectares;
-    private Integer coord_a_longitude;
-    private Integer coord_a_latitude;
-    private Integer coord_b_longitude;
-    private Integer coord_b_latitude;
-    private Integer coord_c_longitude;
-    private Integer coord_c_latitude;
-    private Integer coord_d_longitude;
-    private Integer coord_d_latitude;
+    private String coord_a_longitude;
+    private String coord_a_latitude;
+    private String coord_b_longitude;
+    private String coord_b_latitude;
+    private String coord_c_longitude;
+    private String coord_c_latitude;
+    private String coord_d_longitude;
+    private String coord_d_latitude;
     private String soil_type;
     private String status;
     private String createdAt;

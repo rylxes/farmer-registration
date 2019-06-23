@@ -3,9 +3,12 @@ package com.register.farmerregistration.util;
 import com.register.farmerregistration.local.entities.LocalGovt;
 import com.register.farmerregistration.local.entities.PersonalData;
 import com.register.farmerregistration.local.entities.State;
+import com.register.farmerregistration.local.entities.User;
 import com.register.farmerregistration.local.managers.LocalGovtManager;
 import com.register.farmerregistration.local.managers.StateManager;
+import com.register.farmerregistration.local.managers.UserManager;
 import com.register.farmerregistration.local.repository.LocalGovtRepository;
+import com.register.farmerregistration.local.repository.UserRepository;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -25,7 +28,7 @@ import java.util.Optional;
 @Component
 public class ComboItems {
 
-    ComboBox<ItemContent> titleCombo, gender, state, localGovt = new ComboBox<>();
+    ComboBox<ItemContent> titleCombo, gender, state, localGovt, userCombo = new ComboBox<>();
 
     @Autowired
     StateManager stateManager;
@@ -34,10 +37,55 @@ public class ComboItems {
     LocalGovtManager localGovtManager;
 
     @Autowired
+    UserManager userManager;
+
+
+    @Autowired
     LocalGovtRepository localGovtRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
 
     long ___value;
     String ___valueString;
+
+
+
+    public void setUserCombo(ComboBox<ItemContent> __comboItem) {
+        try {
+            List<User> __List = userRepository.findAll();
+            ObservableList<ItemContent> __ObsList = FXCollections.observableArrayList();
+
+            for (User eachData : __List) {
+                __ObsList.add(new ItemContent((eachData.getId()), eachData.getName()));
+            }
+            __comboItem.getItems().clear();
+            __comboItem.setItems(__ObsList);
+            __comboItem.getSelectionModel().selectFirst();
+            __comboItem.setEditable(true);
+            new AutoCompleteComboBoxListener<>(__comboItem);
+            __comboItem.setConverter(new StringConverter<ItemContent>() {
+
+                @Override
+                public String toString(ItemContent object) {
+                    if (object == null) return null;
+                    return object.toString();
+                }
+
+                @Override
+                public ItemContent fromString(String string) {
+                    // replace this with approquiate implementation of parsing function
+                    // or lookup function
+                    ItemContent locCont = __comboItem.getSelectionModel().getSelectedItem();
+                    return new ItemContent(locCont.getIdString(), string);
+                }
+            });
+
+        } catch (Exception e) {
+            log.error("Exception caught", e);
+        }
+    }
 
 
     public void setTitleCombo(ComboBox<ItemContent> __comboItem) {
@@ -127,6 +175,21 @@ public class ComboItems {
         }
     }
 
+
+    public  void loadUser(ComboBox<ItemContent> userCombo, Object titleID){
+        this.userCombo = userCombo;
+        try {
+            this.userCombo.getSelectionModel().select(0);
+            if (((long) titleID) != 0) {
+                User theLocalG = userManager.findById(((long) titleID));
+                this.userCombo.getSelectionModel().select(new ItemContent(((int) theLocalG.getId()), theLocalG.getName()));
+            } else {
+                this.userCombo.getSelectionModel().select(0);
+            }
+        } catch (Exception ex) {
+            log.error("Exception caught", ex);
+        }
+    }
 
     public  void loadTitle(ComboBox<ItemContent> title, Object titleID){
         this.titleCombo = title;
