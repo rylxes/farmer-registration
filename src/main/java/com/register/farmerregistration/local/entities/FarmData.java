@@ -34,7 +34,7 @@ public class FarmData extends AppModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "farm_generator")
-    @SequenceGenerator(name = "farm_generator", sequenceName = "farm_seq", allocationSize = 50)
+    @SequenceGenerator(name = "farm_generator", sequenceName = "farm_seq", allocationSize = 1)
     @Column(name = "id", updatable = false, nullable = false)
     Integer id;
 

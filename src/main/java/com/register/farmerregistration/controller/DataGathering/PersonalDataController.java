@@ -127,7 +127,7 @@ public class PersonalDataController extends BaseController implements Initializa
 
             boolean match = true;
             String entryText = entry.getName();
-            Long entryint = entry.getId();
+            int entryint = entry.getId();
             for (String part : parts) {
                 // The entry needs to contain all portions of the
                 // search string *but* in any order
@@ -209,7 +209,7 @@ public class PersonalDataController extends BaseController implements Initializa
             Optional result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 PersonalDataList PersonalData = (PersonalDataList) this.tblData.getSelectionModel().getSelectedItem();
-                long item = PersonalData.getId();
+                int item = PersonalData.getId();
                 try {
                     personalDataManager.delete(item);
                 } catch (Exception ex) {

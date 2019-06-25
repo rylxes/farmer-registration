@@ -16,16 +16,18 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Table(name = "lgas")
+@Table(name = "locals")
 public class LocalGovt extends AppModel implements Serializable {
 
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-	private String name;
+    @Column(name = "local_id")
+    private Integer id;
+
+    @Column(name = "local_name")
+    private String name;
 
     @Column(name = "state_id")
-	private String stateId;
+    private Integer stateId;
+
 
 }

@@ -40,7 +40,7 @@ public class PersonalData extends AppModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "data_generator")
-    @SequenceGenerator(name = "data_generator", sequenceName = "data_seq", allocationSize = 50)
+    @SequenceGenerator(name = "data_generator", sequenceName = "data_seq", allocationSize = 1)
     @Column(name = "id", updatable = false, nullable = false)
     Integer id;
 
@@ -50,7 +50,7 @@ public class PersonalData extends AppModel implements Serializable {
     private String gender = genderEnum.MALE.toString();
     private String name;
     private String town;
-    private String lga;
+    private Integer lga;
     private String farmaddress;
     private String resident;
 

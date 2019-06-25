@@ -128,7 +128,7 @@ public class FarmDataController extends BaseController implements Initializable 
 
             boolean match = true;
             String entryText = entry.getFarmlocation();
-            long entryint = entry.getId();
+            Integer entryint = entry.getId();
             for (String part : parts) {
                 // The entry needs to contain all portions of the
                 // search string *but* in any order

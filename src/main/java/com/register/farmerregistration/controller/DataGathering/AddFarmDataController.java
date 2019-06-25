@@ -34,7 +34,7 @@ import java.util.ResourceBundle;
 public class AddFarmDataController implements Initializable {
 
     private String usrId;
-    public long dataID;
+    public Integer dataID;
     @FXML
     private TextField coord_a_longitude, coord_a_latitude, soil_type, no_of_hectares = new TextField();
     @FXML

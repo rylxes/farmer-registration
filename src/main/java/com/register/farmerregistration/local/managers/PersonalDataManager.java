@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 @EntityAnnotation(entityClass = PersonalData.class)
 
-public class PersonalDataManager extends BaseManager<PersonalData, Long, PersonalDataRepository> {
+public class PersonalDataManager extends BaseManager<PersonalData, Integer, PersonalDataRepository> {
 
 
 	private PersonalDataRepository personalDataRepository;

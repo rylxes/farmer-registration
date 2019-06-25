@@ -32,7 +32,7 @@ import java.util.ResourceBundle;
 public class AddPersonalDataController implements Initializable {
 
     private String usrId;
-    public long dataID;
+    public Integer dataID;
     @FXML
     private TextField name, resident, town, BVN, phone_no = new TextField();
     @FXML
@@ -90,8 +90,8 @@ public class AddPersonalDataController implements Initializable {
                 personalDataH.setResident(resident.getText());
                 personalDataH.setTown(town.getText());
                 personalDataH.setFarmaddress(farmaddress.getText());
-                personalDataH.setState_id(((int) comboItems.changeComboBoxLong(stateId)));
-                personalDataH.setLga((comboItems.changeComboBox(lga)));
+                personalDataH.setState_id(((int) comboItems.changeComboBoxInt(stateId)));
+                personalDataH.setLga((comboItems.changeComboBoxInt(lga)));
                 personalDataH.setBVN(BVN.getText());
                 personalDataH.setPhone_no(phone_no.getText());
                 personalDataH.setUserId(((int) result.getId()));
@@ -119,8 +119,8 @@ public class AddPersonalDataController implements Initializable {
             personalDataH.setResident(resident.getText());
             personalDataH.setTown(town.getText());
             personalDataH.setFarmaddress(farmaddress.getText());
-            personalDataH.setState_id(((int) comboItems.changeComboBoxLong(stateId)));
-            personalDataH.setLga((comboItems.changeComboBox(lga)));
+            personalDataH.setState_id(((int) comboItems.changeComboBoxInt(stateId)));
+            personalDataH.setLga((comboItems.changeComboBoxInt(lga)));
             personalDataH.setBVN(BVN.getText());
             personalDataH.setPhone_no(phone_no.getText());
             personalDataH.setId(((int) dataID));

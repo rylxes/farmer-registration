@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class FarmDataList {
 
-    long id;
+    Integer id;
     String name;
     String no_of_hectares;
     String farmlocation;

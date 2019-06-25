@@ -48,8 +48,8 @@ public class ComboItems {
 
 
     long ___value;
+    int ___valueInt;
     String ___valueString;
-
 
 
     public void setUserCombo(ComboBox<ItemContent> __comboItem) {
@@ -58,7 +58,7 @@ public class ComboItems {
             ObservableList<ItemContent> __ObsList = FXCollections.observableArrayList();
 
             for (User eachData : __List) {
-                __ObsList.add(new ItemContent((eachData.getId()), eachData.getName()));
+                __ObsList.add(new ItemContent(eachData.getId(), eachData.getName()));
             }
             __comboItem.getItems().clear();
             __comboItem.setItems(__ObsList);
@@ -78,7 +78,7 @@ public class ComboItems {
                     // replace this with approquiate implementation of parsing function
                     // or lookup function
                     ItemContent locCont = __comboItem.getSelectionModel().getSelectedItem();
-                    return new ItemContent(locCont.getIdString(), string);
+                    return new ItemContent(locCont.getId(), string);
                 }
             });
 
@@ -159,7 +159,6 @@ public class ComboItems {
     public long changeComboBoxLong(ComboBox<ItemContent> __changeCombo) {
         try {
             ItemContent __changeCont;
-
             __changeCont = __changeCombo.getSelectionModel().getSelectedItem();
             __changeCombo.valueProperty().addListener(new ChangeListener<ItemContent>() {
                 @Override
@@ -176,7 +175,7 @@ public class ComboItems {
     }
 
 
-    public  void loadUser(ComboBox<ItemContent> userCombo, Object titleID){
+    public void loadUser(ComboBox<ItemContent> userCombo, Object titleID) {
         this.userCombo = userCombo;
         try {
             this.userCombo.getSelectionModel().select(0);
@@ -191,12 +190,12 @@ public class ComboItems {
         }
     }
 
-    public  void loadTitle(ComboBox<ItemContent> title, Object titleID){
+    public void loadTitle(ComboBox<ItemContent> title, Integer titleID) {
         this.titleCombo = title;
         try {
             this.titleCombo.getSelectionModel().select(0);
             if (((long) titleID) != 0) {
-                LocalGovt theLocalG = localGovtManager.findById(((long) titleID));
+                LocalGovt theLocalG = localGovtManager.findById(titleID);
                 this.titleCombo.getSelectionModel().select(new ItemContent(((int) theLocalG.getId()), theLocalG.getName()));
             } else {
                 this.titleCombo.getSelectionModel().select(0);
@@ -206,14 +205,14 @@ public class ComboItems {
         }
     }
 
-    public void loadCombo(ComboBox<ItemContent> state, ComboBox<ItemContent> lga, Object stateID, Object lgaID) {
+    public void loadCombo(ComboBox<ItemContent> state, ComboBox<ItemContent> lga, Integer stateID, Integer lgaID) {
         this.localGovt = lga;
         this.state = state;
-        
+
         try {
             this.state.getSelectionModel().select(0);
-            if (((long) stateID != 0)) {
-                State theLocalGs = stateManager.findById(((long) stateID));
+            if ((stateID != 0)) {
+                State theLocalGs = stateManager.findById(stateID);
                 this.state.getSelectionModel().select(new ItemContent(((int) theLocalGs.getId()), theLocalGs.getName()));
             } else {
                 this.state.getSelectionModel().select(0);
@@ -225,8 +224,8 @@ public class ComboItems {
 
         try {
             this.localGovt.getSelectionModel().select(0);
-            if (((long) lgaID) != 0) {
-                LocalGovt theLocalG = localGovtManager.findById(((long) lgaID));
+            if ((lgaID) != 0) {
+                LocalGovt theLocalG = localGovtManager.findById(lgaID);
                 this.localGovt.getSelectionModel().select(new ItemContent(((int) theLocalG.getId()), theLocalG.getName()));
             } else {
                 this.localGovt.getSelectionModel().select(0);
@@ -257,6 +256,62 @@ public class ComboItems {
         }
     }
 
+    public Integer changeComboBoxInt(ComboBox<ItemContent> __changeCombo) {
+        try {
+            ItemContent __changeCont;
+
+            __changeCont = __changeCombo.getSelectionModel().getSelectedItem();
+            __changeCombo.valueProperty().addListener(new ChangeListener<ItemContent>() {
+                @Override
+                public void changed(ObservableValue<? extends ItemContent> observableValue, ItemContent oldChoice, ItemContent newChoice) {
+                    ___valueInt = newChoice.getIdInt();
+                }
+            });
+            ___valueInt = __changeCont.getIdInt();
+            return ___valueInt;
+        } catch (Exception ex) {
+            log.error("Exception caught", ex);
+            return 0;
+        }
+    }
+
+
+    private void handleLga() {
+        try {
+            List<LocalGovt> dbList;
+            int longValue = changeComboBoxInt(state);
+            dbList = localGovtRepository.findByStateId(longValue);
+            ObservableList<ItemContent> __ObsList = FXCollections.observableArrayList();
+            for (LocalGovt eachData : dbList) {
+                __ObsList.add(new ItemContent((eachData.getId()), eachData.getName()));
+            }
+            localGovt.getItems().clear();
+            localGovt.setItems(__ObsList);
+            localGovt.getSelectionModel().selectFirst();
+            localGovt.setEditable(true);
+            new AutoCompleteComboBoxListener<>(localGovt);
+            localGovt.setConverter(new StringConverter<ItemContent>() {
+
+                @Override
+                public String toString(ItemContent object) {
+                    if (object == null) return null;
+                    return object.toString();
+                }
+
+                @Override
+                public ItemContent fromString(String string) {
+                    // replace this with approquiate implementation of parsing function
+                    // or lookup function
+                    ItemContent locCont = localGovt.getSelectionModel().getSelectedItem();
+                    return new ItemContent(locCont.getIdInt(), string);
+                }
+            });
+
+        } catch (Exception e) {
+            log.error("Exception caught", e);
+        }
+    }
+
     public void setStateLgaCombo(ComboBox<ItemContent> __comboItem, ComboBox<ItemContent> localGovtCombo) {
 
         this.localGovt = localGovtCombo;
@@ -274,6 +329,7 @@ public class ComboItems {
             __comboItem.getSelectionModel().selectFirst();
             __comboItem.setEditable(true);
             new AutoCompleteComboBoxListener<>(__comboItem);
+            //
             __comboItem.setConverter(new StringConverter<ItemContent>() {
 
                 @Override
@@ -287,47 +343,15 @@ public class ComboItems {
                     // replace this with approquiate implementation of parsing function
                     // or lookup function
                     ItemContent locCont = __comboItem.getSelectionModel().getSelectedItem();
-                    return new ItemContent(locCont.getIdString(), string);
+                    return new ItemContent(locCont.getIdInt(), string);
                 }
             });
 
+            handleLga();
             this.state.setOnAction(new EventHandler<ActionEvent>() {
-
                 @Override
                 public void handle(ActionEvent event) {
-                    try {
-                        List<LocalGovt> dbList;
-                        long longValue = changeComboBoxLong(state);
-                        dbList = localGovtRepository.findByStateId(String.valueOf(longValue));
-                        ObservableList<ItemContent> __ObsList = FXCollections.observableArrayList();
-                        for (LocalGovt eachData : dbList) {
-                            __ObsList.add(new ItemContent((eachData.getId()), eachData.getName()));
-                        }
-                        localGovtCombo.getItems().clear();
-                        localGovtCombo.setItems(__ObsList);
-                        localGovtCombo.getSelectionModel().selectFirst();
-                        localGovtCombo.setEditable(true);
-                        new AutoCompleteComboBoxListener<>(localGovtCombo);
-                        localGovtCombo.setConverter(new StringConverter<ItemContent>() {
-
-                            @Override
-                            public String toString(ItemContent object) {
-                                if (object == null) return null;
-                                return object.toString();
-                            }
-
-                            @Override
-                            public ItemContent fromString(String string) {
-                                // replace this with approquiate implementation of parsing function
-                                // or lookup function
-                                ItemContent locCont = localGovtCombo.getSelectionModel().getSelectedItem();
-                                return new ItemContent(locCont.getIdString(), string);
-                            }
-                        });
-                        
-                    } catch (Exception e) {
-                        log.error("Exception caught", e);
-                    }
+                    handleLga();
                 }
             });
 

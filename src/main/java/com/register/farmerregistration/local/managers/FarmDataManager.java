@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 @EntityAnnotation(entityClass = FarmData.class)
 
-public class FarmDataManager extends BaseManager<FarmData, Long, FarmDataRepository> {
+public class FarmDataManager extends BaseManager<FarmData, Integer, FarmDataRepository> {
 
 
 	private FarmDataRepository farmDataRepository;

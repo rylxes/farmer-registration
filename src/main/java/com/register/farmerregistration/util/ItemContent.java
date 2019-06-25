@@ -10,6 +10,18 @@ public class ItemContent {
     private String idString;
     private String name;
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public int getIdInt() {
+        return idInt;
+    }
+
+    public void setIdInt(int idInt) {
+        this.idInt = idInt;
+    }
+
     public ItemContent(int id, String name) {
         this.idInt = id;
         this.name = name;

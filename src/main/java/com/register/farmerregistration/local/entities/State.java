@@ -18,11 +18,10 @@ import java.io.Serializable;
 @Table(name = "states")
 public class State extends AppModel implements Serializable {
 
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "state_id")
+    private Integer id;
 
-    private long id;
     private String name;
 
 
