@@ -209,7 +209,7 @@ public class FarmDataController extends BaseController implements Initializable 
             Optional result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 FarmDataList PersonalData = (FarmDataList) this.tblData.getSelectionModel().getSelectedItem();
-                long item = PersonalData.getId();
+                Integer item = PersonalData.getId();
                 try {
                     farmDataManager.delete(item);
                 } catch (Exception ex) {

@@ -152,4 +152,5 @@ public class AddFarmDataController implements Initializable {
 
     public void addSupplierStage(Stage stage) {
     }
+
 }

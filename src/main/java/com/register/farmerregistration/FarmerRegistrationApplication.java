@@ -68,8 +68,8 @@ public class FarmerRegistrationApplication extends Application {
 //            fXMLLoader.load(this.getClass().getResource(PersonalDataController.PATH_FXML).openStream());
 //
             //WindowsUtils.openNewWindow(primaryStage, AboutController.PATH_FXML, "About", AboutController.PATH_ICON, null);
-            WindowsUtils.openNewWindow(primaryStage, FarmDataController.PATH_FXML, "Farm Data", FarmDataController.PATH_ICON, null);
-            // WindowsUtils.openNewWindow(primaryStage, PersonalDataController.PATH_FXML, "Farm Data", PersonalDataController.PATH_ICON, null);
+            //WindowsUtils.openNewWindow(primaryStage, FarmDataController.PATH_FXML, "Farm Data", FarmDataController.PATH_ICON, null);
+            WindowsUtils.openNewWindow(primaryStage, PersonalDataController.PATH_FXML, "Personal Data", PersonalDataController.PATH_ICON, null);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

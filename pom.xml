@@ -22,6 +22,12 @@
 
 
         <dependency>
+            <groupId>com.machinezoo.sourceafis</groupId>
+            <artifactId>sourceafis</artifactId>
+            <version>3.5.3</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.yuequan</groupId>
             <artifactId>jpa-soft-delete-spring-boot-starter</artifactId>
             <version>1.0.0.RELEASE</version>
