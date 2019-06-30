@@ -55,7 +55,7 @@ public class AddPersonalDataController extends JPanel
     @FXML
     Label lblContent;
     @FXML
-    public Button btnSave;
+    public Button btnSave,btnAddfingerprint;
     @FXML
     public Button btnUpdate;
     @FXML
@@ -87,6 +87,7 @@ public class AddPersonalDataController extends JPanel
         comboItems.setTitleCombo(title);
         comboItems.setGenderCombo(gender);
     }
+
 
     @FXML
     private void btnSaveOnAction(ActionEvent event) throws ParseException {
@@ -184,7 +185,13 @@ public class AddPersonalDataController extends JPanel
     public void addSupplierStage(Stage stage) {
     }
 
+    @FXML
+    private void btnFingerPrintOnAction(ActionEvent event){
+        start();
+    }
+
     public void start(){
+
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI();
@@ -353,6 +360,7 @@ public class AddPersonalDataController extends JPanel
         }
 
         //run dialog
+        System.setProperty("java.awt.headless", "false");
         JDialog dlg = new JDialog((JDialog)null, "UareU SDK 2.x Java sample application", true);
         paneContent.doModal(dlg);
 

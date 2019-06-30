@@ -1,5 +1,5 @@
-/*C2*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C3*/SET SCHEMA PUBLIC
-set schema PUBLIC
-DISCONNECT
+/*C52*/SET SCHEMA PUBLIC
+alter table IUsers drop constraint UK1che7ywarxswvfauv76vgcl65
+alter table IUsers add constraint UK1che7ywarxswvfauv76vgcl65 unique (email)
+alter table IUsers drop constraint UK1che7ywarxswvfauv76vgcl65
+alter table IUsers add constraint UK1che7ywarxswvfauv76vgcl65 unique (email)

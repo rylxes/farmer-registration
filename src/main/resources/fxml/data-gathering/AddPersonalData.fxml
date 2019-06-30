@@ -113,8 +113,9 @@
                   <Separator prefWidth="200.0" />
                   <HBox alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="460.0" spacing="10.0">
                      <children>
-                        <Button fx:id="btnSave" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="25.0" prefWidth="90.0" text="Save" />
+                        <Button fx:id="btnAddfingerprint" mnemonicParsing="false" onAction="#btnFingerPrintOnAction" prefHeight="35.0" prefWidth="177.0" text="Add Fingerprint" />
                         <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefWidth="94.0" text="Update" />
+                        <Button fx:id="btnSave1" layoutX="435.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="25.0" prefWidth="90.0" text="Save" />
                      </children>
                      <padding>
                         <Insets right="10.0" />

@@ -14,9 +14,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Controller;
+
+import java.awt.*;
 
 @Controller
 @SpringBootApplication
@@ -29,6 +32,7 @@ public class FarmerRegistrationApplication extends Application {
 
     public static void main(final String[] args) {
         launch(FarmerRegistrationApplication.class, args);
+        // -Djava.awt.headless=false
     }
 
 
@@ -38,6 +42,7 @@ public class FarmerRegistrationApplication extends Application {
 
     @Override
     public void init() throws Exception {
+
         springContext = SpringApplication.run(FarmerRegistrationApplication.class);
 
         initI18N();
