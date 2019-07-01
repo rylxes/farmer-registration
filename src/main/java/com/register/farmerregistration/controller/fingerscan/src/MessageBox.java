@@ -1,9 +1,7 @@
-package com.register.farmerregistration.fingerprint;
+import javax.swing.JOptionPane;
 
 import com.digitalpersona.uareu.Reader;
 import com.digitalpersona.uareu.UareUException;
-
-import javax.swing.*;
 
 
 public class MessageBox {

@@ -1,11 +1,12 @@
-package com.register.farmerregistration.fingerprint;
-
-import com.digitalpersona.uareu.*;
+package fingerprint.scanner;
 
 import javax.swing.*;
-import java.awt.*;
+
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import com.digitalpersona.uareu.*;
 
 public class UareUSampleJava 
 	extends JPanel
@@ -27,7 +28,12 @@ public class UareUSampleJava
 	private ReaderCollection m_collection;
 	private Reader           m_reader;
 	
-	private UareUSampleJava(){
+	public UareUSampleJava(){
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				createAndShowGUI();
+			}
+		});
 		final int vgap = 5;
 		final int width = 380;
 		
@@ -159,7 +165,8 @@ public class UareUSampleJava
 		m_dlgParent.dispose();
 	}
 
-	private static void createAndShowGUI() {
+	public static void createAndShowGUI() {
+
 		UareUSampleJava paneContent = new UareUSampleJava();
 		
 		//initialize capture library by acquiring reader collection
@@ -185,12 +192,12 @@ public class UareUSampleJava
     }
 
 
-	public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
-	}
+//	public static void main(String[] args) {
+//        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+//            public void run() {
+//                createAndShowGUI();
+//            }
+//        });
+//	}
 
 }

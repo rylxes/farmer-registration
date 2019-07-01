@@ -1,11 +1,14 @@
-package com.register.farmerregistration.fingerprint;
-
-import com.digitalpersona.uareu.*;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+
+import com.digitalpersona.uareu.*;
 
 public class Capture 
 	extends JPanel
@@ -64,15 +67,16 @@ public class Capture
 		}
 		else if(e.getActionCommand().equals(CaptureThread.ACT_CAPTURE)){
 			//event from capture thread
+			System.out.println("Capture clicked");
 			CaptureThread.CaptureEvent evt = (CaptureThread.CaptureEvent)e;
 			boolean bCanceled = false;
 			
 			if(null != evt.capture_result){
 				if(null != evt.capture_result.image && Reader.CaptureQuality.GOOD == evt.capture_result.quality){
 					//display image
+					System.out.println("Display image");
 					m_image.showImage(evt.capture_result.image);
 
-					Fid image = evt.capture_result.image;
 				}
 				else if(Reader.CaptureQuality.CANCELED == evt.capture_result.quality){
 					//capture or streaming was canceled, just quit

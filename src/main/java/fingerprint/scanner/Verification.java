@@ -1,42 +1,38 @@
-package com.register.farmerregistration.fingerprint;
-
-import com.digitalpersona.uareu.*;
-
-import javax.swing.*;
-import java.awt.*;
+package fingerprint.scanner;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Identification 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+import com.digitalpersona.uareu.*;
+
+public class Verification 
 	extends JPanel
 	implements ActionListener
 {
 	private static final long serialVersionUID = 6;
 	private static final String ACT_BACK = "back";
-	
+
 	private CaptureThread m_capture;
 	private Reader  m_reader;
+	private Fmd[]   m_fmds;
 	private JDialog m_dlgParent;
 	private JTextArea m_text;
 	
-	private final String m_strPromptFormat = "    put %s on the reader\n\n";
-	private final int m_nFingerCnt = 4; //how many fingerprints to collect for the identification
-	private String[]  m_vFingerNames;   //finger names for the collection of prints
-	private Fmd[]     m_fmds;
-	private final String m_strPrompt1 = "Identification started,\n";
+	private final String m_strPrompt1 = "Verification started\n    put any finger on the reader\n\n";
+	private final String m_strPrompt2 = "    put the same or any other finger on the reader\n\n";
 
-	private Identification(Reader reader){
+	private Verification(Reader reader){
 		m_reader = reader;
-		
-		m_vFingerNames = new String[m_nFingerCnt + 1]; //one more to accomodate the last collected fingerprint to be identified 
-		m_vFingerNames[0] = "your thumb";
-		m_vFingerNames[1] = "your index finger";
-		m_vFingerNames[2] = "your middle finger";
-		m_vFingerNames[3] = "your ring finger";
-		m_vFingerNames[4] = "any finger for identification";
-		
-		m_fmds = new Fmd[m_nFingerCnt];		
-	
+		m_fmds = new Fmd[2]; //two FMDs to perform comparison
+
 		final int vgap = 5;
 		final int width = 380;
 		
@@ -58,10 +54,10 @@ public class Identification
 		btnBack.addActionListener(this);
 		add(btnBack);
 		add(Box.createVerticalStrut(vgap));
-	
+
 		setOpaque(true);
 	}
-	
+
 	public void actionPerformed(ActionEvent e){
 		if(e.getActionCommand().equals(ACT_BACK)){
 			//cancel capture
@@ -97,61 +93,48 @@ public class Identification
 	
 	private boolean ProcessCaptureResult(CaptureThread.CaptureEvent evt){
 		boolean bCanceled = false;
-		
+
 		if(null != evt.capture_result){
 			if(null != evt.capture_result.image && Reader.CaptureQuality.GOOD == evt.capture_result.quality){
-				//which finger?
-				int nIdx = 0;
-				for(nIdx = 0; nIdx < m_nFingerCnt; nIdx++){
-					if(null == m_fmds[nIdx]) break;
-				}
-					
 				//extract features
-				Fmd fmdToIdentify = null;
 				Engine engine = UareUGlobal.GetEngine();
+					
 				try{
-					if(m_nFingerCnt > nIdx) m_fmds[nIdx] = engine.CreateFmd(evt.capture_result.image, Fmd.Format.ANSI_378_2004);
-					else fmdToIdentify = engine.CreateFmd(evt.capture_result.image, Fmd.Format.ANSI_378_2004);
+					Fmd fmd = engine.CreateFmd(evt.capture_result.image, Fmd.Format.ANSI_378_2004);
+					if(null == m_fmds[0]) m_fmds[0] = fmd;
+					else if(null == m_fmds[1]) m_fmds[1] = fmd;
 				}
 				catch(UareUException e){ MessageBox.DpError("Engine.CreateFmd()", e); }
 					
-				if(m_nFingerCnt == nIdx){
-					//collected 5 fingerprints
+				if(null != m_fmds[0] &&  null != m_fmds[1]){
+					//perform comparison
 					try{
-						//target false positive identification rate: 0.00001
-						//for a discussion of setting the threshold as well as the statistical validity of the dissimilarity score and error rates, consult the Developer Guide.
-						int falsepositive_rate = Engine.PROBABILITY_ONE / 100000; 
-						
-						Engine.Candidate[] vCandidates = engine.Identify(fmdToIdentify, 0, m_fmds, falsepositive_rate, m_nFingerCnt);
+						int falsematch_rate = engine.Compare(m_fmds[0], 0, m_fmds[1], 0);
 							
-						if(0 != vCandidates.length){
-							//optional: to get false match rate compare with the top candidate
-							int falsematch_rate = engine.Compare(fmdToIdentify, 0, m_fmds[vCandidates[0].fmd_index], vCandidates[0].view_index);
-								
-							String str = String.format("Fingerprint identified, %s\n", m_vFingerNames[vCandidates[0].fmd_index]);
-							m_text.append(str);
-							str = String.format("dissimilarity score: 0x%x.\n", falsematch_rate);
+						int target_falsematch_rate = Engine.PROBABILITY_ONE / 100000; //target rate is 0.00001
+						if(falsematch_rate < target_falsematch_rate){
+							m_text.append("Fingerprints matched.\n");
+							String str = String.format("dissimilarity score: 0x%x.\n", falsematch_rate);
 							m_text.append(str);
 							str = String.format("false match rate: %e.\n\n\n", (double)(falsematch_rate / Engine.PROBABILITY_ONE));
 							m_text.append(str);
 						}
 						else{
-							m_text.append("Fingerprint was not identified.\n\n\n");
+							m_text.append("Fingerprints did not match.\n\n\n");
 						}
-					} catch(UareUException e){ MessageBox.DpError("Engine.Identify()", e); }
+					}
+					catch(UareUException e){ MessageBox.DpError("Engine.CreateFmd()", e); }
 						
 					//discard FMDs
-					for(int i = 0; i < m_nFingerCnt; i++) m_fmds[i] = null;
-						
-					//prompt for the next loop
+					m_fmds[0] = null;
+					m_fmds[1] = null;
+
+					//the new loop starts
 					m_text.append(m_strPrompt1);
-					String str = String.format(m_strPromptFormat, m_vFingerNames[0]);
-					m_text.append(str);
 				}
 				else{
-					//prompt for the next finger
-					String str = String.format(m_strPromptFormat, m_vFingerNames[nIdx + 1]);
-					m_text.append(str);
+					//the loop continues
+					m_text.append(m_strPrompt2);
 				}
 			}
 			else if(Reader.CaptureQuality.CANCELED == evt.capture_result.quality){
@@ -176,7 +159,7 @@ public class Identification
 
 		return !bCanceled;
 	}
-	
+
 	private void doModal(JDialog dlgParent){
 		//open reader
 		try{
@@ -189,8 +172,6 @@ public class Identification
 
 		//put initial prompt on the screen
 		m_text.append(m_strPrompt1);
-		String str = String.format(m_strPromptFormat, m_vFingerNames[0]);
-		m_text.append(str);
 		
 		//bring up modal dialog
 		m_dlgParent = dlgParent;
@@ -215,8 +196,8 @@ public class Identification
 	}
 	
 	public static void Run(Reader reader){
-		JDialog dlg = new JDialog((JDialog)null, "Identification", true);
-		Identification identification = new Identification(reader);
-		identification.doModal(dlg);
+    	JDialog dlg = new JDialog((JDialog)null, "Verification", true);
+    	Verification verification = new Verification(reader);
+    	verification.doModal(dlg);
 	}
 }

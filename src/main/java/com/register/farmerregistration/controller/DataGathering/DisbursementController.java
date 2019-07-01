@@ -2,10 +2,14 @@ package com.register.farmerregistration.controller.DataGathering;
 
 
 import com.register.farmerregistration.controller.BaseController;
+import com.register.farmerregistration.local.entities.AgroInputDisbursed;
 import com.register.farmerregistration.local.entities.FarmData;
 import com.register.farmerregistration.local.entities.PersonalData;
+import com.register.farmerregistration.local.managers.AgroInputDisbursedManager;
+import com.register.farmerregistration.local.managers.DisbursementManager;
 import com.register.farmerregistration.local.managers.FarmDataManager;
 import com.register.farmerregistration.util.WindowsUtils;
+import com.register.farmerregistration.util.table.DisbusementDataList;
 import com.register.farmerregistration.util.table.FarmDataList;
 import com.register.farmerregistration.util.table.FarmDataList;
 import javafx.beans.value.ChangeListener;
@@ -47,13 +51,13 @@ import static com.register.farmerregistration.FarmerRegistrationApplication.spri
  */
 @Slf4j
 @Controller
-public class FarmDataController extends BaseController implements Initializable {
+public class DisbursementController extends BaseController implements Initializable {
 
     public static final String PATH_ICON = WindowsUtils.ICON_APP_PATH;
-    public static final String PATH_FXML = "/fxml/data-gathering/FarmData.fxml";
-    public static final String ADD_PATH_FXML = "/fxml/data-gathering/AddFarmData.fxml";
-    
-    
+    public static final String PATH_FXML = "/fxml/data-gathering/Disbursement.fxml";
+    public static final String ADD_PATH_FXML = "/fxml/data-gathering/AddDisbursement.fxml";
+
+
     @FXML
     private AnchorPane acSupplierMainContent;
     @FXML
@@ -65,15 +69,15 @@ public class FarmDataController extends BaseController implements Initializable 
     @FXML
     private Button btnDelete;
     @FXML
-    private TableView<FarmDataList> tblData;
-    ObservableList<FarmDataList> myDataDetails = FXCollections.observableArrayList();
+    private TableView<DisbusementDataList> tblData;
+    ObservableList<DisbusementDataList> myDataDetails = FXCollections.observableArrayList();
 
     @FXML
     private Button btnRefresh;
 
 
     @Autowired
-    FarmDataManager farmDataManager;
+    AgroInputDisbursedManager disbursementManager;
 
     String userId;
 
@@ -84,22 +88,31 @@ public class FarmDataController extends BaseController implements Initializable 
 
     public void initialize(URL location, ResourceBundle resources) {
         loadTbl();
-        TableColumn name = new TableColumn("Name");
-        name.setCellValueFactory(
-                new PropertyValueFactory<>("name"));
+
+        TableColumn category = new TableColumn("Name");
+        category.setCellValueFactory(
+                new PropertyValueFactory<>("category"));
+
+        TableColumn input_type = new TableColumn("Input Type");
+        input_type.setCellValueFactory(
+                new PropertyValueFactory<>("input_type"));
 
 
-        TableColumn no_of_hectares = new TableColumn("Hectres");
-        no_of_hectares.setCellValueFactory(
-                new PropertyValueFactory<>("no_of_hectares"));
+        TableColumn variety = new TableColumn("Variety");
+        variety.setCellValueFactory(
+                new PropertyValueFactory<>("variety"));
 
 
-        TableColumn farmlocation = new TableColumn("Farm Location");
-        farmlocation.setCellValueFactory(
-                new PropertyValueFactory<>("farmlocation"));
+        TableColumn quantity = new TableColumn("Quantity");
+        quantity.setCellValueFactory(
+                new PropertyValueFactory<>("quantity"));
+
+        TableColumn unit = new TableColumn("Unit");
+        unit.setCellValueFactory(
+                new PropertyValueFactory<>("unit"));
 
 
-        tblData.getColumns().addAll(name, no_of_hectares, farmlocation);
+        tblData.getColumns().addAll(category,input_type, variety, quantity, unit);
         tfSearch.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -123,12 +136,12 @@ public class FarmDataController extends BaseController implements Initializable 
         String[] parts = newVal.toUpperCase().split(" ");
 
         // Filter out the entries that don't contain the entered text
-        ObservableList<FarmDataList> subentries = FXCollections.observableArrayList();
-        for (FarmDataList entry : tblData.getItems()) {
+        ObservableList<DisbusementDataList> subentries = FXCollections.observableArrayList();
+        for (DisbusementDataList entry : tblData.getItems()) {
 
             boolean match = true;
-            String entryText = entry.getFarmlocation();
-            Integer entryint = entry.getId();
+            String entryText = entry.getInput_type();
+            Integer entryint = Math.toIntExact(entry.getId());
             for (String part : parts) {
                 // The entry needs to contain all portions of the
                 // search string *but* in any order
@@ -139,12 +152,13 @@ public class FarmDataController extends BaseController implements Initializable 
             }
 
             if (match) {
-                FarmDataList personalData = new FarmDataList();
-                personalData.setId(entryint);
-                personalData.setName(entry.getName());
-                personalData.setNo_of_hectares(entry.getNo_of_hectares());
-                personalData.setFarmlocation(entry.getFarmlocation());
-                subentries.add(personalData);
+                DisbusementDataList disbursedData = new DisbusementDataList();
+                disbursedData.setId(Long.valueOf(entryint));
+                disbursedData.setCategory(entry.getCategory());
+                disbursedData.setInput_type(entry.getInput_type());
+                disbursedData.setQuantity(entry.getQuantity());
+                disbursedData.setUnit(entry.getUnit());
+                subentries.add(disbursedData);
             }
         }
         tblData.setItems(subentries);
@@ -156,22 +170,22 @@ public class FarmDataController extends BaseController implements Initializable 
     }
 
     @Autowired
-    AddFarmDataController addFarmDataController;
+    AddDisbursementController addDisbursementController;
 
     @FXML
     private void btnAddOnAction(ActionEvent event) {
         FXMLLoader fXMLLoader = new FXMLLoader();
         fXMLLoader.setControllerFactory(springContext::getBean);
-        fXMLLoader.setLocation(this.getClass().getResource(FarmDataController.ADD_PATH_FXML));
+        fXMLLoader.setLocation(this.getClass().getResource(DisbursementController.ADD_PATH_FXML));
 
         try {
             fXMLLoader.load();
             Parent ex = (Parent) fXMLLoader.getRoot();
             Scene scene = new Scene(ex);
             scene.setFill(new Color(0.0D, 0.0D, 0.0D, 0.0D));
-            addFarmDataController = (AddFarmDataController) fXMLLoader.getController();
-            addFarmDataController.lblContent.setText("Add Farm Data");
-            addFarmDataController.btnUpdate.setVisible(false);
+            addDisbursementController = (AddDisbursementController) fXMLLoader.getController();
+            addDisbursementController.lblContent.setText("Add Disbursement Data");
+            addDisbursementController.btnUpdate.setVisible(false);
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -208,10 +222,10 @@ public class FarmDataController extends BaseController implements Initializable 
             alert.initStyle(StageStyle.UNDECORATED);
             Optional result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                FarmDataList PersonalData = (FarmDataList) this.tblData.getSelectionModel().getSelectedItem();
-                int item = PersonalData.getId();
+                DisbusementDataList DisbursedData = (DisbusementDataList) this.tblData.getSelectionModel().getSelectedItem();
+                Long item = DisbursedData.getId();
                 try {
-                    farmDataManager.delete(item);
+                    disbursementManager.delete(item);
                 } catch (Exception ex) {
                     log.error("Exception caught", ex);
                 }
@@ -233,16 +247,21 @@ public class FarmDataController extends BaseController implements Initializable 
 
 
         try {
-            List<FarmData> allData = farmDataManager.findAll();
-            for (FarmData eachData : allData) {
+            List<AgroInputDisbursed> allData = disbursementManager.findAll();
+            //List<FarmData> allData = farmDataManager.findAll();
+            for (AgroInputDisbursed eachData : allData) {
 
                 try {
-                    FarmDataList personalData = new FarmDataList();
-                    personalData.setId(eachData.getId());
-                    personalData.setName(eachData.getUser().getName());
-                    personalData.setNo_of_hectares(eachData.getNo_of_hectares());
-                    personalData.setFarmlocation(eachData.getFarmlocation());
-                    myDataDetails.add(personalData);
+                    DisbusementDataList DisbursedData = new DisbusementDataList();
+                    DisbursedData.setId(Long.valueOf(eachData.getId()));
+                    System.out.println("User Id: " + eachData.getId());
+                    DisbursedData.setName(eachData.getUser().getName());
+
+                    DisbursedData.setInput_type(eachData.getInput_type());
+                    DisbursedData.setQuantity(eachData.getQuantity());
+                    DisbursedData.setVariety(eachData.getVariety());
+                    DisbursedData.setUnit(eachData.getUnit());
+                    myDataDetails.add(DisbursedData);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
@@ -257,23 +276,23 @@ public class FarmDataController extends BaseController implements Initializable 
 
 
     public void selectedView() {
-        FarmDataList PersonalData = (FarmDataList) this.tblData.getSelectionModel().getSelectedItem();
-        String item = String.valueOf(PersonalData.getId());
+        DisbusementDataList DisbursedData = (DisbusementDataList) this.tblData.getSelectionModel().getSelectedItem();
+        String item = String.valueOf(DisbursedData.getId());
         if (!item.isEmpty()) {
             FXMLLoader fXMLLoader = new FXMLLoader();
             fXMLLoader.setControllerFactory(springContext::getBean);
-            fXMLLoader.setLocation(this.getClass().getResource(FarmDataController.ADD_PATH_FXML));
+            fXMLLoader.setLocation(this.getClass().getResource(DisbursementController.ADD_PATH_FXML));
 
             try {
                 fXMLLoader.load();
                 Parent ex = (Parent) fXMLLoader.getRoot();
                 Scene scene = new Scene(ex);
                 scene.setFill(new Color(0.0D, 0.0D, 0.0D, 0.0D));
-                addFarmDataController = (AddFarmDataController) fXMLLoader.getController();
-                addFarmDataController.lblContent.setText("Farm Data Details");
-                addFarmDataController.btnSave.setVisible(false);
-                addFarmDataController.dataID = PersonalData.getId();
-                addFarmDataController.showDetails();
+                addDisbursementController = (AddDisbursementController) fXMLLoader.getController();
+                addDisbursementController.lblContent.setText("Farm Data Details");
+                addDisbursementController.btnSave.setVisible(false);
+                addDisbursementController.dataID = Math.toIntExact(DisbursedData.getId());
+                addDisbursementController.showDetails();
                 Stage stage = new Stage();
                 stage.setScene(scene);
                 stage.initModality(Modality.APPLICATION_MODAL);

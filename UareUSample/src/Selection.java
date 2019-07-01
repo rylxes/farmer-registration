@@ -1,11 +1,19 @@
-package com.register.farmerregistration.fingerprint;
-
-import com.digitalpersona.uareu.*;
-
-import javax.swing.*;
+package fingerprint.scanner;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+
+import com.digitalpersona.uareu.*;
 
 public class Selection 
 	extends JPanel
