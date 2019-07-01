@@ -1,9 +1,7 @@
 package com.register.farmerregistration.util;
 
-import com.register.farmerregistration.local.entities.LocalGovt;
-import com.register.farmerregistration.local.entities.PersonalData;
-import com.register.farmerregistration.local.entities.State;
-import com.register.farmerregistration.local.entities.User;
+import com.register.farmerregistration.local.entities.*;
+import com.register.farmerregistration.local.managers.AgroInputCategoryManager;
 import com.register.farmerregistration.local.managers.LocalGovtManager;
 import com.register.farmerregistration.local.managers.StateManager;
 import com.register.farmerregistration.local.managers.UserManager;
@@ -29,9 +27,13 @@ import java.util.Optional;
 public class ComboItems {
 
     ComboBox<ItemContent> titleCombo, gender, state, localGovt, userCombo = new ComboBox<>();
+    ComboBox<ItemContent> categoryCombo, varietyCombo, unitCombo = new ComboBox<>();
 
     @Autowired
     StateManager stateManager;
+
+    @Autowired
+    AgroInputCategoryManager categoryManager;
 
     @Autowired
     LocalGovtManager localGovtManager;
@@ -156,6 +158,109 @@ public class ComboItems {
         }
     }
 
+    public void setCategoryCombo(ComboBox<ItemContent> __comboItem) {
+        try {
+            ObservableList<ItemContent> __ObsList = FXCollections.observableArrayList();
+            for (AgroInputDisbursed.categoryEnum day : AgroInputDisbursed.categoryEnum.values()) {
+                ItemContent theItem = new ItemContent(day.name(), day.name());
+                __ObsList.add(theItem);
+            }
+            __comboItem.getItems().clear();
+            __comboItem.setItems(__ObsList);
+            __comboItem.getSelectionModel().selectFirst();
+            __comboItem.setEditable(true);
+            new AutoCompleteComboBoxListener<>(__comboItem);
+            __comboItem.setConverter(new StringConverter<ItemContent>() {
+
+                @Override
+                public String toString(ItemContent object) {
+                    if (object == null) return null;
+                    return object.toString();
+                }
+
+                @Override
+                public ItemContent fromString(String string) {
+                    // replace this with approquiate implementation of parsing function
+                    // or lookup function
+                    ItemContent locCont = __comboItem.getSelectionModel().getSelectedItem();
+                    return new ItemContent(locCont.getIdString(), string);
+                }
+            });
+
+        } catch (Exception e) {
+            log.error("Exception caught", e);
+        }
+    }
+
+
+    public void setVarietyCombo(ComboBox<ItemContent> __comboItem) {
+        try {
+            ObservableList<ItemContent> __ObsList = FXCollections.observableArrayList();
+            for (AgroInputDisbursed.varietyEnum day : AgroInputDisbursed.varietyEnum.values()) {
+                ItemContent theItem = new ItemContent(day.name(), day.name());
+                __ObsList.add(theItem);
+            }
+            __comboItem.getItems().clear();
+            __comboItem.setItems(__ObsList);
+            __comboItem.getSelectionModel().selectFirst();
+            __comboItem.setEditable(true);
+            new AutoCompleteComboBoxListener<>(__comboItem);
+            __comboItem.setConverter(new StringConverter<ItemContent>() {
+
+                @Override
+                public String toString(ItemContent object) {
+                    if (object == null) return null;
+                    return object.toString();
+                }
+
+                @Override
+                public ItemContent fromString(String string) {
+                    // replace this with approquiate implementation of parsing function
+                    // or lookup function
+                    ItemContent locCont = __comboItem.getSelectionModel().getSelectedItem();
+                    return new ItemContent(locCont.getIdString(), string);
+                }
+            });
+
+        } catch (Exception e) {
+            log.error("Exception caught", e);
+        }
+    }
+
+    public void setUnitCombo(ComboBox<ItemContent> __comboItem) {
+        try {
+            ObservableList<ItemContent> __ObsList = FXCollections.observableArrayList();
+            for (AgroInputDisbursed.unitEnum day : AgroInputDisbursed.unitEnum.values()) {
+                ItemContent theItem = new ItemContent(day.name(), day.name());
+                __ObsList.add(theItem);
+            }
+            __comboItem.getItems().clear();
+            __comboItem.setItems(__ObsList);
+            __comboItem.getSelectionModel().selectFirst();
+            __comboItem.setEditable(true);
+            new AutoCompleteComboBoxListener<>(__comboItem);
+            __comboItem.setConverter(new StringConverter<ItemContent>() {
+
+                @Override
+                public String toString(ItemContent object) {
+                    if (object == null) return null;
+                    return object.toString();
+                }
+
+                @Override
+                public ItemContent fromString(String string) {
+                    // replace this with approquiate implementation of parsing function
+                    // or lookup function
+                    ItemContent locCont = __comboItem.getSelectionModel().getSelectedItem();
+                    return new ItemContent(locCont.getIdString(), string);
+                }
+            });
+
+        } catch (Exception e) {
+            log.error("Exception caught", e);
+        }
+    }
+
     public long changeComboBoxLong(ComboBox<ItemContent> __changeCombo) {
         try {
             ItemContent __changeCont;
@@ -233,6 +338,37 @@ public class ComboItems {
         } catch (Exception ex) {
             log.error("Exception caught", ex);
         }
+        //changeComboBox();
+    }
+
+
+    public void loadDisbusementCombo(ComboBox<ItemContent> category, Integer categoryID) {
+        this.categoryCombo = category;
+
+        try {
+            this.categoryCombo.getSelectionModel().select(0);
+            if ((categoryID != 0)) {
+                AgroInputCategory theCategories = categoryManager.findById(Long.valueOf(categoryID));
+                this.categoryCombo.getSelectionModel().select(new ItemContent(((int) theCategories.getId()), theCategories.getCategory_name()));
+            } else {
+                this.categoryCombo.getSelectionModel().select(0);
+            }
+        } catch (Exception ex) {
+            log.error("Exception caught", ex);
+        }
+
+
+//        try {
+//            this.localGovt.getSelectionModel().select(0);
+//            if ((lgaID) != 0) {
+//                LocalGovt theLocalG = localGovtManager.findById(lgaID);
+//                this.localGovt.getSelectionModel().select(new ItemContent(((int) theLocalG.getId()), theLocalG.getName()));
+//            } else {
+//                this.localGovt.getSelectionModel().select(0);
+//            }
+//        } catch (Exception ex) {
+//            log.error("Exception caught", ex);
+//        }
         //changeComboBox();
     }
 

@@ -1,9 +1,11 @@
 package com.register.farmerregistration.controller.DataGathering;
 
 
+import com.register.farmerregistration.local.entities.AgroInputDisbursed;
 import com.register.farmerregistration.local.entities.FarmData;
 import com.register.farmerregistration.local.entities.FarmData;
 import com.register.farmerregistration.local.entities.User;
+import com.register.farmerregistration.local.managers.AgroInputDisbursedManager;
 import com.register.farmerregistration.local.managers.FarmDataManager;
 import com.register.farmerregistration.local.managers.FarmDataManager;
 import com.register.farmerregistration.local.managers.UserManager;
@@ -31,16 +33,20 @@ import java.util.ResourceBundle;
  */
 @Slf4j
 @Controller
-public class AddFarmDataController implements Initializable {
+public class AddDisbursementController implements Initializable {
 
     private String usrId;
     public Integer dataID;
     @FXML
-    private TextField coord_a_longitude, coord_a_latitude, soil_type, no_of_hectares = new TextField();
+    private TextField quantity;
     @FXML
     private ComboBox<ItemContent> userId = new ComboBox<>();
     @FXML
-    private TextArea farmlocation = new TextArea();
+    private ComboBox<ItemContent> category = new ComboBox<>();
+    @FXML
+    private ComboBox<ItemContent> variety = new ComboBox<>();
+    @FXML
+    private ComboBox<ItemContent> unit = new ComboBox<>();
     @FXML
     Label lblContent;
     @FXML
@@ -58,17 +64,20 @@ public class AddFarmDataController implements Initializable {
 
 
     @Autowired
-    FarmDataManager personalDataManager;
+    AgroInputDisbursedManager disbursedDataManager;
 
     @Autowired
     ComboItems comboItems;
 
-    public Long productValue, locationValue;
-
-    private String locationValueString, productValueString;
+//    public Long productValue, locationValue;
+//
+//    private String locationValueString, productValueString;
 
 
     public void initialize(URL url, ResourceBundle rb) {
+        comboItems.setCategoryCombo(category);
+        comboItems.setVarietyCombo(variety);
+        comboItems.setUnitCombo(unit);
         comboItems.setUserCombo(userId);
     }
 
@@ -76,14 +85,15 @@ public class AddFarmDataController implements Initializable {
     private void btnSaveOnAction(ActionEvent event) throws ParseException {
         Long id = 0L;
         try {
-            FarmData dataH = new FarmData();
-            dataH.setNo_of_hectares(no_of_hectares.getText());
-            dataH.setCoord_a_longitude(coord_a_longitude.getText());
-            dataH.setCoord_a_latitude(coord_a_latitude.getText());
-            dataH.setFarmlocation(farmlocation.getText());
-            dataH.setSoil_type(soil_type.getText());
-            dataH.setUserId(comboItems.changeComboBoxLong(userId));
-            personalDataManager.save(dataH, btnSave);
+            AgroInputDisbursed dataH = new AgroInputDisbursed();
+            //dataH.setCategory(comboItems.changeComboBox(category));
+            dataH.setInput_type(comboItems.changeComboBox(category));
+            dataH.setVariety(comboItems.changeComboBox(variety));
+            dataH.setQuantity(Integer.valueOf(quantity.getText()));
+            dataH.setUnit(comboItems.changeComboBox(unit));
+//            dataH.setSoil_type(soil_type.getText());
+//            dataH.setUserId(comboItems.changeComboBoxLong(userId));
+            disbursedDataManager.save(dataH, btnSave);
 
 
         } catch (Exception ex) {
@@ -99,15 +109,19 @@ public class AddFarmDataController implements Initializable {
         Boolean issaved = false;
         try {
 
-            FarmData dataH = new FarmData();
-            dataH.setNo_of_hectares(no_of_hectares.getText());
-            dataH.setCoord_a_longitude(coord_a_longitude.getText());
-            dataH.setCoord_a_latitude(coord_a_latitude.getText());
-            dataH.setFarmlocation(farmlocation.getText());
-            dataH.setSoil_type(soil_type.getText());
-            dataH.setUserId(comboItems.changeComboBoxLong(userId));
+            AgroInputDisbursed dataH = new AgroInputDisbursed();
+            dataH.setInput_type(comboItems.changeComboBox(category));
+            dataH.setVariety(comboItems.changeComboBox(variety));
+            dataH.setQuantity(Integer.valueOf(quantity.getText()));
+            dataH.setUnit(comboItems.changeComboBox(unit));
+//            dataH.setNo_of_hectares(no_of_hectares.getText());
+//            dataH.setCoord_a_longitude(coord_a_longitude.getText());
+//            dataH.setCoord_a_latitude(coord_a_latitude.getText());
+//            dataH.setFarmlocation(farmlocation.getText());
+//            dataH.setSoil_type(soil_type.getText());
+//            dataH.setUserId(comboItems.changeComboBoxLong(userId));
             dataH.setId(((int) dataID));
-            personalDataManager.update(dataH, btnSave);
+            disbursedDataManager.update(dataH, btnSave);
 
         } catch (Exception ex) {
             ex.getStackTrace();
@@ -126,14 +140,13 @@ public class AddFarmDataController implements Initializable {
         try {
 
 
-            FarmData theData = personalDataManager.findById(this.dataID);
+            AgroInputDisbursed theData = disbursedDataManager.findById(Long.valueOf(this.dataID));
 
-
-            no_of_hectares.setText(theData.getNo_of_hectares());
-            coord_a_longitude.setText(theData.getCoord_a_longitude());
-            coord_a_latitude.setText(theData.getCoord_a_latitude());
-            farmlocation.setText(theData.getFarmlocation());
-            soil_type.setText(theData.getSoil_type());
+            //comboItems.loadDisbusementCombo(theData.getCategory());
+//            quantity.setText(theData.getCoord_a_longitude());
+//            unit.setText(theData.geUnit());
+//            farmlocation.setText(theData.getFarmlocation());
+//            soil_type.setText(theData.getSoil_type());
 
             comboItems.loadUser(userId, theData.getUserId());
         } catch (Exception ex) {

@@ -5,13 +5,14 @@ import com.digitalpersona.uareu.Reader;
 import com.digitalpersona.uareu.ReaderCollection;
 import com.digitalpersona.uareu.UareUException;
 import com.digitalpersona.uareu.UareUGlobal;
-import com.register.farmerregistration.fingerprint.*;
+import fingerprint.scanner.*;
 import com.register.farmerregistration.local.entities.PersonalData;
 import com.register.farmerregistration.local.entities.User;
 import com.register.farmerregistration.local.managers.PersonalDataManager;
 import com.register.farmerregistration.local.managers.UserManager;
 import com.register.farmerregistration.util.ComboItems;
 import com.register.farmerregistration.util.ItemContent;
+import fingerprint.scanner.*;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +27,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import javax.swing.*;
@@ -55,7 +57,7 @@ public class AddPersonalDataController extends JPanel
     @FXML
     Label lblContent;
     @FXML
-    public Button btnSave,btnAddfingerprint;
+    public Button btnSave;
     @FXML
     public Button btnUpdate;
     @FXML
@@ -65,6 +67,8 @@ public class AddPersonalDataController extends JPanel
     private Stage primaryStage;
     @FXML
     private AnchorPane apContent;
+    @FXML
+    private Button btnCapture;
     ObservableList<String> countryObList;
 
 
@@ -87,7 +91,6 @@ public class AddPersonalDataController extends JPanel
         comboItems.setTitleCombo(title);
         comboItems.setGenderCombo(gender);
     }
-
 
     @FXML
     private void btnSaveOnAction(ActionEvent event) throws ParseException {
@@ -185,18 +188,15 @@ public class AddPersonalDataController extends JPanel
     public void addSupplierStage(Stage stage) {
     }
 
-    @FXML
-    private void btnFingerPrintOnAction(ActionEvent event){
-        start();
-    }
-
     public void start(){
-
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
+        System.out.println("Started");
+        createAndShowGUI();
+//        SwingUtilities.invokeLater(new Runnable() {
+//            public void run() {
+//                new ClassPathXmlApplicationContext( "UareUSampleJava.xml" ); // pay attention to context so that it is not left open
+//                //createAndShowGUI();
+//            }
+//        });
     }
 
     private static final long serialVersionUID=1;
@@ -207,6 +207,7 @@ public class AddPersonalDataController extends JPanel
     private static final String ACT_VERIFICATION = "verification";
     private static final String ACT_IDENTIFICATION = "identification";
     private static final String ACT_ENROLLMENT = "enrollment";
+    private static final String ACT_PHOTO = "Take Photo";
     private static final String ACT_EXIT = "exit";
 
     private JDialog   m_dlgParent;
@@ -273,8 +274,15 @@ public class AddPersonalDataController extends JPanel
         add(btnEnrollment);
         add(Box.createVerticalStrut(vgap));
 
+        JButton btnPhoto = new JButton("Take Photo");
+        btnPhoto.setActionCommand(ACT_PHOTO);
+        btnPhoto.addActionListener(this);
+        add(btnPhoto);
         add(Box.createVerticalStrut(vgap));
-        JButton btnExit = new JButton("Exit");
+
+
+        add(Box.createVerticalStrut(vgap));
+        JButton btnExit = new JButton("Close");
         btnExit.setActionCommand(ACT_EXIT);
         btnExit.addActionListener(this);
         add(btnExit);
@@ -333,6 +341,9 @@ public class AddPersonalDataController extends JPanel
                 Enrollment.Run(m_reader);
             }
         }
+        else if(e.getActionCommand().equals(ACT_PHOTO)){
+            TakePicture.Run();
+        }
         else if(e.getActionCommand().equals(ACT_EXIT)){
             m_dlgParent.setVisible(false);
         }
@@ -343,6 +354,7 @@ public class AddPersonalDataController extends JPanel
         m_dlgParent.setContentPane(this);
         m_dlgParent.pack();
         m_dlgParent.setLocationRelativeTo(null);
+        m_dlgParent.setAutoRequestFocus(false);
         m_dlgParent.setVisible(true);
         m_dlgParent.dispose();
     }
@@ -360,9 +372,9 @@ public class AddPersonalDataController extends JPanel
         }
 
         //run dialog
-        System.setProperty("java.awt.headless", "false");
-        JDialog dlg = new JDialog((JDialog)null, "UareU SDK 2.x Java sample application", true);
+        JDialog dlg = new JDialog((JDialog)null, "Maisatech BioCapture", true);
         paneContent.doModal(dlg);
+
 
         //release capture library by destroying reader collection
         try{
@@ -371,6 +383,11 @@ public class AddPersonalDataController extends JPanel
         catch(UareUException e) {
             MessageBox.DpError("UareUGlobal.destroyReaderCollection()", e);
         }
+    }
+    @FXML
+    private void btnCaptureOnAction(ActionEvent event){
+        System.out.println("Finger scan starting..");
+        start();
     }
 
 }

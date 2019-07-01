@@ -1,6 +1,7 @@
 package com.register.farmerregistration;
 
 
+import com.register.farmerregistration.controller.ApplicationController;
 import com.register.farmerregistration.controller.DataGathering.FarmDataController;
 import com.register.farmerregistration.controller.DataGathering.PersonalDataController;
 import com.register.farmerregistration.util.I18N;
@@ -19,8 +20,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Controller;
 
-import java.awt.*;
-
 @Controller
 @SpringBootApplication
 @EnableScheduling
@@ -31,8 +30,9 @@ public class FarmerRegistrationApplication extends Application {
 
 
     public static void main(final String[] args) {
+        //SpringApplicationBuilder builder = new SpringApplicationBuilder(FarmerRegistrationApplication.class);
+        //builder.headless(false).run(args);
         launch(FarmerRegistrationApplication.class, args);
-        // -Djava.awt.headless=false
     }
 
 
@@ -42,9 +42,8 @@ public class FarmerRegistrationApplication extends Application {
 
     @Override
     public void init() throws Exception {
-
         springContext = SpringApplication.run(FarmerRegistrationApplication.class);
-
+        //SpringApplicationBuilder builder = new SpringApplicationBuilder(FarmerRegistrationApplication.class);
         initI18N();
     }
 
@@ -70,11 +69,12 @@ public class FarmerRegistrationApplication extends Application {
 
 //            FXMLLoader fXMLLoader = new FXMLLoader();
 //            fXMLLoader.setControllerFactory(springContext::getBean);
-//            fXMLLoader.load(this.getClass().getResource(PersonalDataController.PATH_FXML).openStream());
-//
+//            fXMLLoader.load(this.getClass().getResource(ApplicationController.PATH_FXML).openStream());
+
             //WindowsUtils.openNewWindow(primaryStage, AboutController.PATH_FXML, "About", AboutController.PATH_ICON, null);
             //WindowsUtils.openNewWindow(primaryStage, FarmDataController.PATH_FXML, "Farm Data", FarmDataController.PATH_ICON, null);
-            WindowsUtils.openNewWindow(primaryStage, PersonalDataController.PATH_FXML, "Personal Data", PersonalDataController.PATH_ICON, null);
+            WindowsUtils.openNewWindow(primaryStage, ApplicationController.PATH_FXML, "Maisatech Nig Ltd", ApplicationController.PATH_ICON, null);
+//            WindowsUtils.openNewWindow(primaryStage, PersonalDataController.PATH_FXML, "Personal Data", PersonalDataController.PATH_ICON, null);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

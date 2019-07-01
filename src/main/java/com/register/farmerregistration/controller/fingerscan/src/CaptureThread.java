@@ -1,9 +1,8 @@
-package com.register.farmerregistration.fingerprint;
-
-import com.digitalpersona.uareu.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import com.digitalpersona.uareu.*;
 
 public class CaptureThread extends Thread 
 {

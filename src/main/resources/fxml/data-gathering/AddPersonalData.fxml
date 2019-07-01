@@ -9,12 +9,14 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Group xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.register.farmerregistration.controller.DataGathering.AddPersonalDataController">
+<Group xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.register.farmerregistration.controller.DataGathering.AddPersonalDataController">
     <children>
         <AnchorPane id="AnchorPane" layoutX="10.0" layoutY="10.0" prefHeight="651.0" prefWidth="702.0">
             <children>
@@ -113,14 +115,19 @@
                   <Separator prefWidth="200.0" />
                   <HBox alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="460.0" spacing="10.0">
                      <children>
-                        <Button fx:id="btnAddfingerprint" mnemonicParsing="false" onAction="#btnFingerPrintOnAction" prefHeight="35.0" prefWidth="177.0" text="Add Fingerprint" />
+                        <Button fx:id="btnSave" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="25.0" prefWidth="90.0" text="Save" />
                         <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefWidth="94.0" text="Update" />
-                        <Button fx:id="btnSave1" layoutX="435.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="25.0" prefWidth="90.0" text="Save" />
                      </children>
                      <padding>
                         <Insets right="10.0" />
                      </padding>
                   </HBox>
+                  <Button fx:id="btnCapture" mnemonicParsing="false" onAction="#btnCaptureOnAction"  text="Fingerprint" />
+                  <ImageView id="imgFinger"  fitHeight="109.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true">
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                  </ImageView>
                </children>
                <padding>
                   <Insets left="20.0" right="20.0" />
