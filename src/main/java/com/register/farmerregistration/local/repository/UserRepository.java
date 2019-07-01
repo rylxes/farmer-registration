@@ -11,7 +11,7 @@ import org.yuequan.jpa.soft.delete.repository.SoftDelete;
  */
 @SoftDelete
 @Repository("localUserRepository")
-public interface UserRepository extends BaseRepository<User, Long> {
+public interface UserRepository extends BaseRepository<User, Integer> {
     @Query("SELECT COUNT(u) FROM User u")
     Long getTotalUsers();
 

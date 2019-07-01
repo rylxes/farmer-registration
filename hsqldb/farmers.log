@@ -1,4 +1,4 @@
-/*C6*/SET SCHEMA PUBLIC
+/*C52*/SET SCHEMA PUBLIC
 alter table IUsers drop constraint UK1che7ywarxswvfauv76vgcl65
 alter table IUsers add constraint UK1che7ywarxswvfauv76vgcl65 unique (email)
 alter table IUsers drop constraint UK1che7ywarxswvfauv76vgcl65

@@ -28,9 +28,9 @@ import java.util.Map;
 @EnableAsync
 @Slf4j
 @Configuration
-@EnableJpaSoftDeleteRepositories(
-        basePackages = {"com.register.farmerregistration.local.repository"}
-)
+//@EnableJpaSoftDeleteRepositories(
+//        basePackages = {"com.register.farmerregistration.local.repository"}
+//)
 @EnableJpaRepositories(
         basePackages = {"com.register.farmerregistration.local.repository"}
 )

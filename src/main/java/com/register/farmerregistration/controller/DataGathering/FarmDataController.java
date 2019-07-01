@@ -52,8 +52,8 @@ public class FarmDataController extends BaseController implements Initializable 
     public static final String PATH_ICON = WindowsUtils.ICON_APP_PATH;
     public static final String PATH_FXML = "/fxml/data-gathering/FarmData.fxml";
     public static final String ADD_PATH_FXML = "/fxml/data-gathering/AddFarmData.fxml";
-    
-    
+
+
     @FXML
     private AnchorPane acSupplierMainContent;
     @FXML
@@ -141,7 +141,7 @@ public class FarmDataController extends BaseController implements Initializable 
             if (match) {
                 FarmDataList personalData = new FarmDataList();
                 personalData.setId(entryint);
-                personalData.setName(entry.getName());
+                personalData.setUser(entry.getUser());
                 personalData.setNo_of_hectares(entry.getNo_of_hectares());
                 personalData.setFarmlocation(entry.getFarmlocation());
                 subentries.add(personalData);
@@ -209,7 +209,7 @@ public class FarmDataController extends BaseController implements Initializable 
             Optional result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 FarmDataList PersonalData = (FarmDataList) this.tblData.getSelectionModel().getSelectedItem();
-                Integer item = PersonalData.getId();
+                int item = PersonalData.getId();
                 try {
                     farmDataManager.delete(item);
                 } catch (Exception ex) {
@@ -239,7 +239,7 @@ public class FarmDataController extends BaseController implements Initializable 
                 try {
                     FarmDataList personalData = new FarmDataList();
                     personalData.setId(eachData.getId());
-                    personalData.setName(eachData.getUser().getName());
+                    personalData.setUser(eachData.getUser());
                     personalData.setNo_of_hectares(eachData.getNo_of_hectares());
                     personalData.setFarmlocation(eachData.getFarmlocation());
                     myDataDetails.add(personalData);

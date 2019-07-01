@@ -29,7 +29,6 @@ public class AgroInputCategory extends AppModel implements Serializable {
     private static final long serialVersionUID1 = 1L;
 
 
-
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,8 +36,6 @@ public class AgroInputCategory extends AppModel implements Serializable {
 
 
     private String category_name;
-    private String createdAt;
-    private String updatedAt;
 
 
     @Transient

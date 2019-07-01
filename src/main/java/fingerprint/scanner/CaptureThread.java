@@ -1,13 +1,13 @@
-package com.register.farmerregistration.fingerprint;
-
-import com.digitalpersona.uareu.*;
-
+package fingerprint.scanner;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import com.digitalpersona.uareu.*;
 
 public class CaptureThread extends Thread 
 {
 	public static final String ACT_CAPTURE = "capture_thread_captured";
+	public static final String ACT_PHOTO = "Take Photo";
 	
 	public class CaptureEvent extends ActionEvent{
 		private static final long serialVersionUID = 101;

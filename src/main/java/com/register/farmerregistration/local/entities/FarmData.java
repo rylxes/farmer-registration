@@ -39,9 +39,14 @@ public class FarmData extends AppModel implements Serializable {
     Integer id;
 
 
+    @Column(name = "user_id")
+    private Integer user_id;
 
-    private Long userId;
+
+    @Column(name = "farm_location")
     private String farmlocation;
+
+
     private String no_of_hectares;
     private String coord_a_longitude;
     private String coord_a_latitude;
@@ -53,17 +58,13 @@ public class FarmData extends AppModel implements Serializable {
     private String coord_d_latitude;
     private String soil_type;
     private String status;
-    private String createdAt;
-    private String updatedAt;
 
 
     @Nullable
     @NotFound(action = NotFoundAction.IGNORE)
     @ManyToOne
-    @JoinColumn(insertable = false, updatable = false, name = "userId")
+    @JoinColumn(insertable = false, updatable = false, name = "user_id")
     private User user;
-
-
 
 
     @Transient

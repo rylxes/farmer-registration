@@ -1,6 +1,9 @@
 package com.register.farmerregistration.util.table;
 
+import com.register.farmerregistration.local.entities.State;
 import lombok.Data;
+
+import java.util.Objects;
 
 @Data
 public class PersonalDataList {
@@ -10,16 +13,29 @@ public class PersonalDataList {
     String name;
     String stateName;
     String BVN;
+    State state;
 
+
+    public void setState(State state) {
+        this.state = Objects.isNull(state) ? null : state;
+        if (state != null) {
+            this.stateName = state.getName();
+        }
+    }
 
     public PersonalDataList() {
     }
 
-    public PersonalDataList(int id, String name, String BVN, String phone, String stateName) {
+    public PersonalDataList(int id, String name, String BVN, String phone, State state) {
+
+        this.state = Objects.isNull(state) ? null : state;
         this.id = id;
         this.phone_no = phone;
         this.name = name;
-        this.stateName = stateName;
+        if (state != null) {
+            this.stateName = state.getName();
+        }
+
         this.BVN = BVN;
     }
 }

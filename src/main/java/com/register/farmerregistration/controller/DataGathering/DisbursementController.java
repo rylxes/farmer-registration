@@ -2,10 +2,16 @@ package com.register.farmerregistration.controller.DataGathering;
 
 
 import com.register.farmerregistration.controller.BaseController;
+import com.register.farmerregistration.local.entities.AgroInputDisbursed;
+import com.register.farmerregistration.local.entities.FarmData;
 import com.register.farmerregistration.local.entities.PersonalData;
-import com.register.farmerregistration.local.managers.PersonalDataManager;
+import com.register.farmerregistration.local.managers.AgroInputDisbursedManager;
+import com.register.farmerregistration.local.managers.DisbursementManager;
+import com.register.farmerregistration.local.managers.FarmDataManager;
 import com.register.farmerregistration.util.WindowsUtils;
-import com.register.farmerregistration.util.table.PersonalDataList;
+import com.register.farmerregistration.util.table.DisbusementDataList;
+import com.register.farmerregistration.util.table.FarmDataList;
+import com.register.farmerregistration.util.table.FarmDataList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -45,10 +51,13 @@ import static com.register.farmerregistration.FarmerRegistrationApplication.spri
  */
 @Slf4j
 @Controller
-public class PersonalDataController extends BaseController implements Initializable {
+public class DisbursementController extends BaseController implements Initializable {
 
     public static final String PATH_ICON = WindowsUtils.ICON_APP_PATH;
-    public static final String PATH_FXML = "/fxml/data-gathering/PersonalData.fxml";
+    public static final String PATH_FXML = "/fxml/data-gathering/Disbursement.fxml";
+    public static final String ADD_PATH_FXML = "/fxml/data-gathering/AddDisbursement.fxml";
+
+
     @FXML
     private AnchorPane acSupplierMainContent;
     @FXML
@@ -60,15 +69,15 @@ public class PersonalDataController extends BaseController implements Initializa
     @FXML
     private Button btnDelete;
     @FXML
-    private TableView<PersonalDataList> tblData;
-    ObservableList<PersonalDataList> myDataDetails = FXCollections.observableArrayList();
+    private TableView<DisbusementDataList> tblData;
+    ObservableList<DisbusementDataList> myDataDetails = FXCollections.observableArrayList();
 
     @FXML
     private Button btnRefresh;
 
 
     @Autowired
-    PersonalDataManager personalDataManager;
+    AgroInputDisbursedManager disbursementManager;
 
     String userId;
 
@@ -76,29 +85,34 @@ public class PersonalDataController extends BaseController implements Initializa
     protected void onClose() {
 
     }
+
     public void initialize(URL location, ResourceBundle resources) {
         loadTbl();
-        TableColumn name = new TableColumn("Name");
-        name.setCellValueFactory(
-                new PropertyValueFactory<>("name"));
+
+        TableColumn category = new TableColumn("Name");
+        category.setCellValueFactory(
+                new PropertyValueFactory<>("category"));
+
+        TableColumn input_type = new TableColumn("Input Type");
+        input_type.setCellValueFactory(
+                new PropertyValueFactory<>("input_type"));
 
 
-        TableColumn bvn = new TableColumn("BVN");
-        bvn.setCellValueFactory(
-                new PropertyValueFactory<>("BVN"));
+        TableColumn variety = new TableColumn("Variety");
+        variety.setCellValueFactory(
+                new PropertyValueFactory<>("variety"));
 
 
-        TableColumn phone = new TableColumn("Phone");
-        phone.setCellValueFactory(
-                new PropertyValueFactory<>("phone_no"));
+        TableColumn quantity = new TableColumn("Quantity");
+        quantity.setCellValueFactory(
+                new PropertyValueFactory<>("quantity"));
+
+        TableColumn unit = new TableColumn("Unit");
+        unit.setCellValueFactory(
+                new PropertyValueFactory<>("unit"));
 
 
-        TableColumn state = new TableColumn("State");
-        state.setCellValueFactory(
-                new PropertyValueFactory<>("stateName"));
-
-
-        tblData.getColumns().addAll(name, bvn, phone, state);
+        tblData.getColumns().addAll(category,input_type, variety, quantity, unit);
         tfSearch.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -122,12 +136,12 @@ public class PersonalDataController extends BaseController implements Initializa
         String[] parts = newVal.toUpperCase().split(" ");
 
         // Filter out the entries that don't contain the entered text
-        ObservableList<PersonalDataList> subentries = FXCollections.observableArrayList();
-        for (PersonalDataList entry : tblData.getItems()) {
+        ObservableList<DisbusementDataList> subentries = FXCollections.observableArrayList();
+        for (DisbusementDataList entry : tblData.getItems()) {
 
             boolean match = true;
-            String entryText = entry.getName();
-            int entryint = entry.getId();
+            String entryText = entry.getInput_type();
+            Integer entryint = Math.toIntExact(entry.getId());
             for (String part : parts) {
                 // The entry needs to contain all portions of the
                 // search string *but* in any order
@@ -138,13 +152,14 @@ public class PersonalDataController extends BaseController implements Initializa
             }
 
             if (match) {
-                PersonalDataList personalData = new PersonalDataList();
-                personalData.setId(entryint);
-                personalData.setName(entry.getName());
-                personalData.setBVN(entry.getBVN());
-                personalData.setPhone_no(entry.getPhone_no());
-                personalData.setState(entry.getState());
-                subentries.add(personalData);
+                DisbusementDataList disbursedData = new DisbusementDataList();
+                disbursedData.setId(Long.valueOf(entryint));
+                disbursedData.setCategory(entry.getCategory());
+                disbursedData.setInput_type(entry.getInput_type());
+                disbursedData.setQuantity(entry.getQuantity());
+                disbursedData.setUnit(entry.getUnit());
+                disbursedData.setUser(entry.getUser());
+                subentries.add(disbursedData);
             }
         }
         tblData.setItems(subentries);
@@ -156,22 +171,22 @@ public class PersonalDataController extends BaseController implements Initializa
     }
 
     @Autowired
-    AddPersonalDataController addPersonalDataController;
+    AddDisbursementController addDisbursementController;
 
     @FXML
     private void btnAddOnAction(ActionEvent event) {
         FXMLLoader fXMLLoader = new FXMLLoader();
         fXMLLoader.setControllerFactory(springContext::getBean);
-        fXMLLoader.setLocation(this.getClass().getResource("/fxml/data-gathering/AddPersonalData.fxml"));
+        fXMLLoader.setLocation(this.getClass().getResource(DisbursementController.ADD_PATH_FXML));
 
         try {
             fXMLLoader.load();
             Parent ex = (Parent) fXMLLoader.getRoot();
             Scene scene = new Scene(ex);
             scene.setFill(new Color(0.0D, 0.0D, 0.0D, 0.0D));
-            addPersonalDataController = (AddPersonalDataController) fXMLLoader.getController();
-            addPersonalDataController.lblContent.setText("Add Personal Data");
-            addPersonalDataController.btnUpdate.setVisible(false);
+            addDisbursementController = (AddDisbursementController) fXMLLoader.getController();
+            addDisbursementController.lblContent.setText("Add Disbursement Data");
+            addDisbursementController.btnUpdate.setVisible(false);
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -208,10 +223,10 @@ public class PersonalDataController extends BaseController implements Initializa
             alert.initStyle(StageStyle.UNDECORATED);
             Optional result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                PersonalDataList PersonalData = (PersonalDataList) this.tblData.getSelectionModel().getSelectedItem();
-                int item = PersonalData.getId();
+                DisbusementDataList DisbursedData = (DisbusementDataList) this.tblData.getSelectionModel().getSelectedItem();
+                Long item = DisbursedData.getId();
                 try {
-                    personalDataManager.delete(item);
+                    disbursementManager.delete(item);
                 } catch (Exception ex) {
                     log.error("Exception caught", ex);
                 }
@@ -233,18 +248,20 @@ public class PersonalDataController extends BaseController implements Initializa
 
 
         try {
-            List<PersonalData> allData = personalDataManager.findAll();
-            for (PersonalData eachData : allData) {
+            List<AgroInputDisbursed> allData = disbursementManager.findAll();
+            //List<FarmData> allData = farmDataManager.findAll();
+            for (AgroInputDisbursed eachData : allData) {
+                try {
+                    DisbusementDataList DisbursedData = new DisbusementDataList();
+                    DisbursedData.setId(Long.valueOf(eachData.getId()));
+                    DisbursedData.setUser(eachData.getUser());
 
-                try{
-                    PersonalDataList personalData = new PersonalDataList();
-                    personalData.setId(eachData.getId());
-                    personalData.setName(eachData.getName());
-                    personalData.setBVN(eachData.getBVN());
-                    personalData.setPhone_no(eachData.getPhone_no());
-                    personalData.setState(eachData.getState());
-                    myDataDetails.add(personalData);
-                }catch (Exception ex){
+                    DisbursedData.setInput_type(eachData.getInput_type());
+                    DisbursedData.setQuantity(eachData.getQuantity());
+                    DisbursedData.setVariety(eachData.getVariety());
+                    DisbursedData.setUnit(eachData.getUnit());
+                    myDataDetails.add(DisbursedData);
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
 
@@ -258,23 +275,23 @@ public class PersonalDataController extends BaseController implements Initializa
 
 
     public void selectedView() {
-        PersonalDataList PersonalData = (PersonalDataList) this.tblData.getSelectionModel().getSelectedItem();
-        String item = String.valueOf(PersonalData.getId());
+        DisbusementDataList DisbursedData = (DisbusementDataList) this.tblData.getSelectionModel().getSelectedItem();
+        String item = String.valueOf(DisbursedData.getId());
         if (!item.isEmpty()) {
             FXMLLoader fXMLLoader = new FXMLLoader();
             fXMLLoader.setControllerFactory(springContext::getBean);
-            fXMLLoader.setLocation(this.getClass().getResource("/fxml/data-gathering/AddPersonalData.fxml"));
+            fXMLLoader.setLocation(this.getClass().getResource(DisbursementController.ADD_PATH_FXML));
 
             try {
                 fXMLLoader.load();
                 Parent ex = (Parent) fXMLLoader.getRoot();
                 Scene scene = new Scene(ex);
                 scene.setFill(new Color(0.0D, 0.0D, 0.0D, 0.0D));
-                addPersonalDataController = (AddPersonalDataController) fXMLLoader.getController();
-                addPersonalDataController.lblContent.setText("Personal Data Details");
-                addPersonalDataController.btnSave.setVisible(false);
-                addPersonalDataController.dataID = PersonalData.getId();
-                addPersonalDataController.showDetails();
+                addDisbursementController = (AddDisbursementController) fXMLLoader.getController();
+                addDisbursementController.lblContent.setText("Farm Data Details");
+                addDisbursementController.btnSave.setVisible(false);
+                addDisbursementController.dataID = Math.toIntExact(DisbursedData.getId());
+                addDisbursementController.showDetails();
                 Stage stage = new Stage();
                 stage.setScene(scene);
                 stage.initModality(Modality.APPLICATION_MODAL);

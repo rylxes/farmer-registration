@@ -51,9 +51,18 @@ public class User extends AppModel implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Integer id;
     private String name;
     private String email;
+
+
+    @Column(name = "EMAIL_VERIFIED_AT")
+    private String emailVerifiedAt;
+
+
+    @Column(name = "REMEMBER_TOKEN")
+    private String rememberToken;
+
     private String password;
     private String passport;
     private String user_type;
@@ -61,10 +70,6 @@ public class User extends AppModel implements Serializable {
     private String status = statusEnum.Active.toString();
     @Nullable
     private String email_verified_at;
-
-
-    private String createdAt;
-    private String updatedAt;
 
 
     @Transient

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @EntityAnnotation(entityClass = User.class)
 @Component("localUserManager")
-public class UserManager extends BaseManager<User, Long, UserRepository> {
+public class UserManager extends BaseManager<User, Integer, UserRepository> {
 
     private UserRepository userRepository;
 

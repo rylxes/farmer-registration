@@ -46,12 +46,22 @@ public class PersonalData extends AppModel implements Serializable {
 
     @Column(name = "user_id")
     private Integer userId;
+
+
     private String title = titleEnum.MR.toString();
     private String gender = genderEnum.MALE.toString();
     private String name;
     private String town;
-    private Integer lga;
+    private String lga;
+
+//    @Transient
+//    private Integer lgaInt = Integer.valueOf(lga);
+
+    @Column(name = "FARM_ADDRESS")
     private String farmaddress;
+
+
+    @Column(name = "RESIDENTIAL_ADDRESS")
     private String resident;
 
     private Integer state_id;
@@ -59,11 +69,15 @@ public class PersonalData extends AppModel implements Serializable {
 
     private String phone_no;
     private String bio;
+
+    @Transient
     private String passport;
+
+    @Column(name = "BVN")
     private String BVN;
     private String flag = flagEnum.Active.toString();
-    private String createdAt;
-    private String updatedAt;
+
+
 
 
     @Nullable
@@ -73,11 +87,11 @@ public class PersonalData extends AppModel implements Serializable {
     private State state;
 
 
-    @Nullable
-    @NotFound(action = NotFoundAction.IGNORE)
-    @ManyToOne
-    @JoinColumn(insertable = false, updatable = false, name = "lga")
-    private LocalGovt localGovt;
+//    @Nullable
+//    @NotFound(action = NotFoundAction.IGNORE)
+//    @ManyToOne
+//    @JoinColumn(insertable = false, updatable = false, name = "lgaInt")
+//    private LocalGovt localGovt;
 
     @Transient
     private String error;

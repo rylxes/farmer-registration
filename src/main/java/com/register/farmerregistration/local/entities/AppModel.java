@@ -13,6 +13,7 @@ import org.hibernate.search.annotations.Parameter;
 import org.hibernate.search.annotations.TokenFilterDef;
 import org.hibernate.search.annotations.TokenizerDef;
 
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.validation.ConstraintViolation;
@@ -37,7 +38,11 @@ public abstract class AppModel {
 
     private transient String error;
     public transient boolean isError;
-    private String removedAt;
+    @Column(name = "CREATED_AT")
+    private String createdAt;
+    @Column(name = "UPDATED_AT")
+    private String updatedAt;
+    //private String removedAt;
 
     enum flagEnum {
         Active,

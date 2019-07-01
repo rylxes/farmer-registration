@@ -16,10 +16,9 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Data
 @Table(name = "states")
-public class State extends AppModel implements Serializable {
+public class State implements Serializable {
 
     @Id
-    @Column(name = "state_id")
     private Integer id;
 
     private String name;

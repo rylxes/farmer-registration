@@ -1,11 +1,12 @@
-package com.register.farmerregistration.fingerprint;
-
-import com.digitalpersona.uareu.*;
+package fingerprint.scanner;
 
 import javax.swing.*;
-import java.awt.*;
+
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import com.digitalpersona.uareu.*;
 
 public class UareUSampleJava 
 	extends JPanel
@@ -19,6 +20,7 @@ public class UareUSampleJava
 	private static final String ACT_VERIFICATION = "verification";
 	private static final String ACT_IDENTIFICATION = "identification";
 	private static final String ACT_ENROLLMENT = "enrollment";
+	private static final String ACT_PHOTO = "Take Photo";
 	private static final String ACT_EXIT = "exit";
 	
 	private JDialog   m_dlgParent;
@@ -27,7 +29,12 @@ public class UareUSampleJava
 	private ReaderCollection m_collection;
 	private Reader           m_reader;
 	
-	private UareUSampleJava(){
+	public UareUSampleJava(){
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				createAndShowGUI();
+			}
+		});
 		final int vgap = 5;
 		final int width = 380;
 		
@@ -83,6 +90,12 @@ public class UareUSampleJava
 		btnEnrollment.setActionCommand(ACT_ENROLLMENT);
 		btnEnrollment.addActionListener(this);
 		add(btnEnrollment);
+		add(Box.createVerticalStrut(vgap));
+
+		JButton btnPhoto = new JButton("Take Photo");
+		btnPhoto.setActionCommand(ACT_PHOTO);
+		btnPhoto.addActionListener(this);
+		add(btnPhoto);
 		add(Box.createVerticalStrut(vgap));
 
 		add(Box.createVerticalStrut(vgap));
@@ -145,6 +158,10 @@ public class UareUSampleJava
 				Enrollment.Run(m_reader);
 			}
 		}
+
+		else if(e.getActionCommand().equals(ACT_PHOTO)){
+			TakePicture.Run();
+		}
 		else if(e.getActionCommand().equals(ACT_EXIT)){
 			m_dlgParent.setVisible(false);
 		}
@@ -159,7 +176,8 @@ public class UareUSampleJava
 		m_dlgParent.dispose();
 	}
 
-	private static void createAndShowGUI() {
+	public static void createAndShowGUI() {
+
 		UareUSampleJava paneContent = new UareUSampleJava();
 		
 		//initialize capture library by acquiring reader collection
@@ -172,7 +190,7 @@ public class UareUSampleJava
 		}
 
 		//run dialog
-		JDialog dlg = new JDialog((JDialog)null, "UareU SDK 2.x Java sample application", true);
+		JDialog dlg = new JDialog((JDialog)null, "Maisatech BioCapture", true);
 		paneContent.doModal(dlg);
 		
 		//release capture library by destroying reader collection
@@ -185,12 +203,12 @@ public class UareUSampleJava
     }
 
 
-	public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
-	}
+//	public static void main(String[] args) {
+//        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+//            public void run() {
+//                createAndShowGUI();
+//            }
+//        });
+//	}
 
 }

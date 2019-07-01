@@ -26,7 +26,7 @@
                                 <TextField fx:id="tfSearch" prefHeight="31.0" prefWidth="570.0"
                                            promptText="Search Farm Data"/>
                                 <Button fx:id="btnRefresh" mnemonicParsing="false" onAction="#btnRefreshOnAction"
-                                        prefHeight="31.0" prefWidth="30.0">
+                                        prefHeight="31.0" prefWidth="30.0" text="Refresh">
                                     <tooltip>
                                         <Tooltip text="refresh"/>
                                     </tooltip>

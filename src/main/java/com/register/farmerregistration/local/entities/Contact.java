@@ -46,8 +46,6 @@ public class Contact extends AppModel implements Serializable {
     private String phone_no;
     private String email;
     private String details;
-    private String createdAt;
-    private String updatedAt;
 
 
     @Transient
