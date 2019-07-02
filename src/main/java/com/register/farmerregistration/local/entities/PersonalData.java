@@ -87,11 +87,11 @@ public class PersonalData extends AppModel implements Serializable {
     private State state;
 
 
-//    @Nullable
-//    @NotFound(action = NotFoundAction.IGNORE)
-//    @ManyToOne
-//    @JoinColumn(insertable = false, updatable = false, name = "lgaInt")
-//    private LocalGovt localGovt;
+    @Nullable
+    @NotFound(action = NotFoundAction.IGNORE)
+    @ManyToOne
+    @JoinColumn(insertable = false, updatable = false, name = "user_id")
+    private User user;
 
     @Transient
     private String error;

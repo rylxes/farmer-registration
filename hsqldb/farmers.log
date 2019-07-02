@@ -1,8 +1,9 @@
 /*C52*/SET SCHEMA PUBLIC
-alter table IUsers drop constraint UK1che7ywarxswvfauv76vgcl65
-alter table IUsers add constraint UK1che7ywarxswvfauv76vgcl65 unique (email)
-alter table IUsers drop constraint UK1che7ywarxswvfauv76vgcl65
-alter table IUsers add constraint UK1che7ywarxswvfauv76vgcl65 unique (email)
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+alter table personal_data add constraint FKppuo89ic0pr6coji8jfo1ayl4 foreign key (user_id) references Users
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
 DISCONNECT
 /*C53*/SET SCHEMA PUBLIC
 DISCONNECT
