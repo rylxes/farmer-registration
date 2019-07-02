@@ -1,36 +1,321 @@
+/*C3*/SET SCHEMA PUBLIC
+alter table IUsers drop constraint UK1che7ywarxswvfauv76vgcl65
+alter table IUsers add constraint UK1che7ywarxswvfauv76vgcl65 unique (email)
+alter table IUsers drop constraint UK1che7ywarxswvfauv76vgcl65
+alter table IUsers add constraint UK1che7ywarxswvfauv76vgcl65 unique (email)
+/*C3*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C36*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C17*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C39*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C33*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C45*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C46*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C49*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C44*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C5*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C43*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C37*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C10*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C9*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C11*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C3*/DISCONNECT
+/*C29*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C38*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C8*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C23*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C28*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C6*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C18*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C4*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C15*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C22*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C32*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C25*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C51*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C14*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C47*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C20*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C13*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C19*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C12*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C48*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C41*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C30*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C7*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C35*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C31*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C21*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C34*/SET SCHEMA PUBLIC
+DISCONNECT
 /*C52*/SET SCHEMA PUBLIC
-alter table IUsers drop constraint UK1che7ywarxswvfauv76vgcl65
-alter table IUsers add constraint UK1che7ywarxswvfauv76vgcl65 unique (email)
-alter table IUsers drop constraint UK1che7ywarxswvfauv76vgcl65
-alter table IUsers add constraint UK1che7ywarxswvfauv76vgcl65 unique (email)
+DISCONNECT
+/*C42*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C26*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C50*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C24*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C16*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C27*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C40*/SET SCHEMA PUBLIC
 DISCONNECT
 /*C53*/SET SCHEMA PUBLIC
 DISCONNECT
 /*C54*/SET SCHEMA PUBLIC
-DISCONNECT
+set schema PUBLIC
 /*C55*/SET SCHEMA PUBLIC
-DISCONNECT
+set schema PUBLIC
 /*C56*/SET SCHEMA PUBLIC
 DISCONNECT
 /*C57*/SET SCHEMA PUBLIC
 DISCONNECT
 /*C58*/SET SCHEMA PUBLIC
-DISCONNECT
+set schema PUBLIC
 /*C59*/SET SCHEMA PUBLIC
 DISCONNECT
 /*C60*/SET SCHEMA PUBLIC
-DISCONNECT
+set schema PUBLIC
 /*C61*/SET SCHEMA PUBLIC
-DISCONNECT
+set schema PUBLIC
 /*C62*/SET SCHEMA PUBLIC
-DISCONNECT
+set schema PUBLIC
 /*C63*/SET SCHEMA PUBLIC
-DISCONNECT
+set schema PUBLIC
 /*C64*/SET SCHEMA PUBLIC
-DISCONNECT
+set schema PUBLIC
+/*C61*/DISCONNECT
 /*C65*/SET SCHEMA PUBLIC
+alter table Users add column type varchar(255)
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+alter table agro_input_disbursed add constraint FKs18cw37bqqi65imh6qvbj7f9x foreign key (user_Id) references Users
+alter table farm_data add constraint FKm0oyciul7u8t7ntt0dnwrd5v4 foreign key (user_id) references Users
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+/*C58*/DISCONNECT
+/*C60*/DISCONNECT
+/*C62*/DISCONNECT
+/*C64*/DISCONNECT
+/*C66*/SET SCHEMA PUBLIC
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+/*C63*/DISCONNECT
+/*C66*/SET SCHEMA PUBLIC
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+/*C66*/SET SCHEMA PUBLIC
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+/*C66*/SET SCHEMA PUBLIC
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+/*C65*/SET SCHEMA PUBLIC
+set schema PUBLIC
+/*C66*/SET SCHEMA PUBLIC
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
 DISCONNECT
 /*C66*/SET SCHEMA PUBLIC
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+/*C66*/SET SCHEMA PUBLIC
+set schema PUBLIC
+/*C67*/SET SCHEMA PUBLIC
+set schema PUBLIC
+DISCONNECT
+/*C66*/DISCONNECT
+/*C66*/SET SCHEMA PUBLIC
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+/*C66*/SET SCHEMA PUBLIC
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+/*C66*/SET SCHEMA PUBLIC
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+/*C68*/SET SCHEMA PUBLIC
+set schema PUBLIC
+/*C75*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C102*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C69*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C68*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C103*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C115*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C104*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C110*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C99*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C98*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C81*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C114*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C72*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C107*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C97*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C113*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C67*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C84*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C96*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C71*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C108*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C112*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C94*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C91*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C101*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C95*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C73*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C100*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C109*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C87*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C77*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C82*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C80*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C93*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C86*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C66*/DISCONNECT
+/*C76*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C88*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C92*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C79*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C85*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C111*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C89*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C105*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C90*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C106*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C83*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C74*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C78*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C70*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C66*/SET SCHEMA PUBLIC
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+/*C66*/SET SCHEMA PUBLIC
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+/*C66*/SET SCHEMA PUBLIC
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+/*C66*/SET SCHEMA PUBLIC
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
 DISCONNECT
 /*C67*/SET SCHEMA PUBLIC
 DISCONNECT
@@ -102,3 +387,37 @@ DISCONNECT
 DISCONNECT
 /*C101*/SET SCHEMA PUBLIC
 DISCONNECT
+/*C102*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C103*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C104*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C105*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C106*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C107*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C108*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C109*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C110*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C111*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C112*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C113*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C114*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C115*/SET SCHEMA PUBLIC
+DISCONNECT
+DISCONNECT
+/*C66*/SET SCHEMA PUBLIC
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
+alter table Users drop constraint UKncoa9bfasrql0x4nhmh1plxxy
+alter table Users add constraint UKncoa9bfasrql0x4nhmh1plxxy unique (email)
