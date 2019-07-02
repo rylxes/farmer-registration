@@ -21,7 +21,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-@Table(name = "IUsers", uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
+@Table(name = "Users", uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
 public class User extends AppModel implements Serializable {
     /**
      *

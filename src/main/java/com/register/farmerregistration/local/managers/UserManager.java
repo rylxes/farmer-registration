@@ -25,11 +25,16 @@ public class UserManager extends BaseManager<User, Integer, UserRepository> {
 
 
     public boolean login(String username, String password) {
+        System.out.println("User manager-findby: " + username);
         try {
+            System.out.println("find by: " + username);
             User allUser = userRepository.findByEmail(username);
             if (allUser != null) {
+                System.out.println(username + " found");
                 String dbPassword = allUser.getPassword();
                 return Hash.bcryptcheck(password, dbPassword);
+            } else{
+                System.out.println(username + " not found");
             }
 
             return false;

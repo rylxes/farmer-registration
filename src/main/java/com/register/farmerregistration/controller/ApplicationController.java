@@ -6,6 +6,7 @@ package com.register.farmerregistration.controller;
 
 
 import com.register.farmerregistration.util.GlobalMethods;
+import com.register.farmerregistration.util.UserSession;
 import com.register.farmerregistration.util.WindowsUtils;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -173,6 +174,9 @@ public class ApplicationController implements Initializable {
         Image usrImg = new Image("/newicon/user.png");
         this.imgUsrTop.setFill(new ImagePattern(usrImg));
         this.circleImgUsr.setFill(new ImagePattern(usrImg));
+        this.lblUsrNamePopOver.setText(UserSession.getTodayDate().toString());
+        this.lblFullName.setText(UserSession.getUserName());
+                this.lblRoleAs.setText(UserSession.getUserType());
 
     }
 

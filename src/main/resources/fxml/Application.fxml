@@ -62,7 +62,7 @@
                                                     <graphic>
                                                         <ImageView fx:id="imgFarmDataBtn" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                                             <image>
-                                                                <Image url="@../newicon/shop.png" />
+                                                                <Image url="@../newicon/farm.png" />
                                                             </image>
                                                         </ImageView>
                                                     </graphic>
@@ -85,7 +85,7 @@
                                                     <graphic>
                                                         <ImageView fx:id="imgPersonalDataBtn" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                                             <image>
-                                                                <Image url="@../newicon/pos.png" />
+                                                                <Image url="@../newicon/personal.png" />
                                                             </image>
                                                         </ImageView>
                                                     </graphic>
@@ -134,7 +134,7 @@
                                                                                         <Label fx:id="lblUsrNamePopOver" alignment="CENTER" layoutY="107.0" prefHeight="15.0" prefWidth="196.0" text="UserName" />
                                                                                         <Label fx:id="lblFullName" alignment="CENTER" layoutX="2.0" layoutY="129.0" prefHeight="15.0" prefWidth="196.0" text="Full Name" />
                                                                                         <Label fx:id="lblRoleAs" alignment="CENTER" layoutX="3.0" layoutY="148.0" prefHeight="15.0" prefWidth="196.0" text="Role" />
-                                                                                        <Hyperlink fx:id="hlEditUpdateAccount" alignment="CENTER" layoutX="3.0" layoutY="163.0" onAction="#hlUpdateAccount" prefHeight="23.0" prefWidth="194.0" text="Edit/Update" />
+                                                                                        <!--<Hyperlink fx:id="hlEditUpdateAccount" alignment="CENTER" layoutX="3.0" layoutY="163.0" onAction="#hlUpdateAccount" prefHeight="23.0" prefWidth="194.0" text="Edit/Update" />-->
                                                                                         <Button fx:id="btnLogOut" layoutX="3.0" layoutY="184.0" mnemonicParsing="false" onAction="#btnLogOut" prefHeight="40.0" prefWidth="196.0" text="logOut" />
                                                                                     </children>
                                                                                 </AnchorPane>

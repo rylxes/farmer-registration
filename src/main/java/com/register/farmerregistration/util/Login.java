@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.usertype.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -54,8 +55,8 @@ public class Login {
 
     private String UserName = "";
     private String UserId = "";
-    private String UserBranchId = "";
-    private String dataBase = "";
+    private String UserType = "";
+
     public TextField tfUserName;
     public PasswordField pfUserPassword;
     public Label statusLabel;
@@ -63,30 +64,26 @@ public class Login {
     public ProgressIndicator progressBar = new ProgressIndicator();
 
 
-    public String getDataBase() {
-        return dataBase;
-    }
-
-    public void setDataBase(String dataBase) {
-        UserSession.setUserDB(dataBase);
-        this.dataBase = dataBase;
-    }
-
     public String getUserName() {
         return UserName;
     }
 
+//    //public void setUserName(String userName) {
+//        UserName = userName;
+//    }
+
+   // public String getUserBranchId() {
+//        return UserBranchId;
+//    }
+
     public void setUserName(String userName) {
+        UserSession.setUserName(userName);
         UserName = userName;
     }
 
-    public String getUserBranchId() {
-        return UserBranchId;
-    }
-
-    public void setUserBranchId(String userBranchId) {
-        UserSession.setUserBranchId(userBranchId);
-        UserBranchId = userBranchId;
+    public void setUserType(String userType) {
+        UserSession.setUserType(userType);
+        UserType = userType;
     }
 
     public String getUserId() {
@@ -103,9 +100,10 @@ public class Login {
         btnLogin.setVisible(false);
         btnCancel.setVisible(false);
         try {
+            System.out.println("Hold on");
             statusLabel.setText("Hold on");
             Long userCount = usersGateway.getTotalUsers();
-
+            System.out.println("User count: " + userCount);
             loginLocal(actionEvent);
         } catch (Exception ex) {
             log.error("Exception caught", ex);
@@ -124,7 +122,9 @@ public class Login {
     }
 
     private void loginLocal(ActionEvent actionEvent) {
+        System.out.println("Logging in as " + tfUserName.getText());
         if (userManager.login(tfUserName.getText(), pfUserPassword.getText())) {
+            System.out.println("Logged in");
             final Task<FXMLLoader> task = new Task<FXMLLoader>() {
                 @Override
                 protected FXMLLoader call() throws IOException, InterruptedException {
@@ -154,6 +154,7 @@ public class Login {
             });
             new Thread(task).start();
         } else {
+            System.out.println("Not logged in");
             reload();
 
             Alert alert = new Alert(Alert.AlertType.ERROR, "The Username or Password is not correct. local ");
@@ -173,7 +174,7 @@ public class Login {
             Stage adminPanelStage = new Stage();
             adminPanelStage.setMaximized(true);
             ApplicationController apControl = (ApplicationController) task.getValue().getController();
-            apControl.btnHomeOnClick(actionEvent);
+            apControl.btnPersonalDataOnClick(actionEvent);
             adminPanelStage.setScene(adminPanelScene);
             adminPanelStage.getIcons().add(new Image("/image/icon.png"));
             //adminPanelStage.setTitle(this.rs.getString(3));
@@ -188,10 +189,11 @@ public class Login {
     private void getClientDBLocal() {
         try {
             User theUser = usersGateway.findByEmail(tfUserName.getText());
-            setUserName(theUser.getEmail());
+            setUserName(theUser.getName());
             setUserId(String.valueOf(theUser.getId()));
+            setUserType(theUser.getUser_type());
             UserSession.setCurrentAuth(theUser);
-            setDataBase(dataBase);
+            //setDataBase(dataBase);
         } catch (Exception ex) {
             System.out.println(ex);
             log.error("Exception caught", ex);
