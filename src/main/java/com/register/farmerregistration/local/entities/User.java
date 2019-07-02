@@ -65,7 +65,11 @@ public class User extends AppModel implements Serializable {
 
     private String password;
     private String passport;
-    private String user_type;
+
+    @Column(name = "user_type")
+    private String userType;
+
+
     private String type = typeENUM.NONLOGIN.toString();
     private String status = statusEnum.Active.toString();
     @Nullable

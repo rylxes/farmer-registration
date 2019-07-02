@@ -76,6 +76,7 @@ public class PersonalDataController extends BaseController implements Initializa
     protected void onClose() {
 
     }
+
     public void initialize(URL location, ResourceBundle resources) {
         loadTbl();
         TableColumn name = new TableColumn("Name");
@@ -235,10 +236,10 @@ public class PersonalDataController extends BaseController implements Initializa
 
 
         try {
-            List<PersonalData> allData = personalDataManager.findAll();
+            List<PersonalData> allData = personalDataManager.findAllByUserType("user");
             for (PersonalData eachData : allData) {
 
-                try{
+                try {
                     PersonalDataList personalData = new PersonalDataList();
                     personalData.setId(eachData.getId());
                     personalData.setName(eachData.getName());
@@ -246,7 +247,7 @@ public class PersonalDataController extends BaseController implements Initializa
                     personalData.setPhone_no(eachData.getPhone_no());
                     personalData.setState(eachData.getState());
                     myDataDetails.add(personalData);
-                }catch (Exception ex){
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
 

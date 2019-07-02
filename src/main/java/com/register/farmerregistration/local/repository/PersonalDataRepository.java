@@ -12,5 +12,6 @@ import java.util.List;
 */
 @Repository
 public interface PersonalDataRepository extends BaseRepository<PersonalData, Integer>  {
-//    List<PersonalData>findAllByUser_userType(String userType);
+
+    List<PersonalData> findByUser_UserType(String userType);
 }
