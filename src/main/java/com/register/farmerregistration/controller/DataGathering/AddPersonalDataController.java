@@ -45,8 +45,11 @@ import java.util.ResourceBundle;
 public class AddPersonalDataController extends JPanel
         implements ActionListener, Initializable {
 
-    private String usrId;
+    private Integer usrId;
     public Integer dataID;
+
+
+    public PersonalData thePersonaData;
     @FXML
     private TextField name, resident, town, BVN, phone_no = new TextField();
     @FXML
@@ -128,19 +131,20 @@ public class AddPersonalDataController extends JPanel
         Boolean issaved = false;
         try {
 
-            PersonalData personalDataH = new PersonalData();
-            personalDataH.setTitle(comboItems.changeComboBox(title));
-            personalDataH.setGender(comboItems.changeComboBox(gender));
-            personalDataH.setName(name.getText());
-            personalDataH.setResident(resident.getText());
-            personalDataH.setTown(town.getText());
-            personalDataH.setFarmaddress(farmaddress.getText());
-            personalDataH.setState_id(((int) comboItems.changeComboBoxInt(stateId)));
-            personalDataH.setLga((comboItems.changeComboBoxValue(lga)));
-            personalDataH.setBVN(BVN.getText());
-            personalDataH.setPhone_no(phone_no.getText());
-            personalDataH.setId(((int) dataID));
-            personalDataManager.update(personalDataH, btnSave);
+            //PersonalData personalDataH = new PersonalData();
+            thePersonaData.setTitle(comboItems.changeComboBox(title));
+            thePersonaData.setGender(comboItems.changeComboBox(gender));
+            thePersonaData.setName(name.getText());
+            thePersonaData.setResident(resident.getText());
+            thePersonaData.setTown(town.getText());
+            thePersonaData.setFarmaddress(farmaddress.getText());
+            thePersonaData.setState_id(((int) comboItems.changeComboBoxInt(stateId)));
+            thePersonaData.setLga((comboItems.changeComboBoxValue(lga)));
+            thePersonaData.setBVN(BVN.getText());
+            thePersonaData.setPhone_no(phone_no.getText());
+            //personalDataH.setId(((int) dataID));
+            //personalDataH.setUserId(usrId);
+            personalDataManager.update(thePersonaData, btnSave);
 
         } catch (Exception ex) {
             ex.getStackTrace();
@@ -159,15 +163,15 @@ public class AddPersonalDataController extends JPanel
         try {
 
 
-            PersonalData theData = personalDataManager.findById(this.dataID);
+             thePersonaData = personalDataManager.findById(this.dataID);
 
-
-            name.setText(theData.getName());
-            resident.setText(theData.getName());
-            town.setText(theData.getTown());
-            farmaddress.setText(theData.getFarmaddress());
-            BVN.setText(theData.getBVN());
-            phone_no.setText(theData.getPhone_no());
+            usrId = thePersonaData.getUserId();
+            name.setText(thePersonaData.getName());
+            resident.setText(thePersonaData.getName());
+            town.setText(thePersonaData.getTown());
+            farmaddress.setText(thePersonaData.getFarmaddress());
+            BVN.setText(thePersonaData.getBVN());
+            phone_no.setText(thePersonaData.getPhone_no());
 
             //comboItems.loadCombo(stateId, lga, theData.getState_id(), theData.getLga());
         } catch (Exception ex) {

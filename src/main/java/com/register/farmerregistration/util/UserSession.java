@@ -16,11 +16,28 @@ import java.util.Date;
 @Slf4j
 public class UserSession {
     static String userID;
-    static String customerID;
-    static String userBranchId;
-    static String userLocationID;
-    static int employeeRandomUserID;
-    static String userDB;
+
+    public static String getUserName() {
+        return userName;
+    }
+
+    public static void setUserName(String userName) {
+        UserSession.userName = userName;
+    }
+
+    public static String getUserType() {
+        return userType;
+    }
+
+    public static void setUserType(String userType) {
+        UserSession.userType = userType;
+    }
+
+    static String userName;
+    static String userType;
+//    static String userLocationID;
+//    static int employeeRandomUserID;
+//    static String userDB;
     static User CurrentAuth;
     static String today = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
     static String todayDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
@@ -37,13 +54,13 @@ public class UserSession {
 
 
 
-    public static String getUserLocationID() {
-        return userLocationID;
-    }
-
-    public static void setUserLocationID(String userLocationID) {
-        UserSession.userLocationID = userLocationID;
-    }
+//    public static String getUserLocationID() {
+//        return userLocationID;
+//    }
+//
+//    public static void setUserLocationID(String userLocationID) {
+//        UserSession.userLocationID = userLocationID;
+//    }
 
     public static String getToday() {
         return today;
@@ -69,16 +86,7 @@ public class UserSession {
         CurrentAuth = currentAuth;
     }
 
-    public static String getUserDB() {
-        if (userDB == null) {
-            return "ikooba_db";
-        }
-        return userDB;
-    }
 
-    public static void setUserDB(String userDB) {
-        UserSession.userDB = userDB;
-    }
 
     public static String getLoyaltyID() {
         return loyaltyID;
@@ -90,22 +98,6 @@ public class UserSession {
 
     static String loyaltyID;
 
-    public static String getUserBranchId() {
-        return userBranchId;
-    }
-
-    public static void setUserBranchId(String userBranchId) {
-        UserSession.userBranchId = userBranchId;
-    }
-
-
-    public static String getCustomerID() {
-        return customerID;
-    }
-
-    public static void setCustomerID(String customerID) {
-        UserSession.customerID = customerID;
-    }
 
     public static String getUserID() {
         return userID;
@@ -115,11 +107,7 @@ public class UserSession {
         UserSession.userID = userID;
     }
 
-    public static int getEmployeeRandomUserID() {
-        return employeeRandomUserID;
-    }
 
-    public static void setEmployeeRandomUserID(int employeeRandomUserID) {
-        UserSession.employeeRandomUserID = employeeRandomUserID;
-    }
+
+
 }

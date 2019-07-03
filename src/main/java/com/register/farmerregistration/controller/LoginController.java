@@ -85,6 +85,7 @@ public class LoginController extends BaseController implements Initializable {
         statusLabel.setVisible(false);
 
         try {
+            System.out.println(userManager.findAll());
             loginAction();
             //startSession();
         } catch (Exception var3) {

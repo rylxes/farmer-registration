@@ -14,6 +14,7 @@ public class PersonalDataList {
     String stateName;
     String BVN;
     State state;
+    String user_type;
 
 
     public void setState(State state) {
@@ -37,5 +38,6 @@ public class PersonalDataList {
         }
 
         this.BVN = BVN;
+        //this.user_type = user_type;
     }
 }

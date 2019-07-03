@@ -23,11 +23,11 @@
 }
 
 .left-box{
-    -fx-background-color: rgba(200, 20, 200, 1);
+    -fx-background-color: rgb(17, 200, 13);
 }
 
 .right-box{
-    -fx-background-color: rgba(200, 0, 122, 200);
+    -fx-background-color: rgba(143, 233, 210, 0.2);
 }
 
 .tagline{

@@ -28,4 +28,7 @@ public class PersonalDataManager extends BaseManager<PersonalData, Integer, Pers
         this.personalDataRepository = personalDataRepository;
     }
 
+//	public List<PersonalData> findAllByUserType(String userType) {
+//		return PersonalDataRepository.findAllByUser_userType(String userType);
+//	}
 }

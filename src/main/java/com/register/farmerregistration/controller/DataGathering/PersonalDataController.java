@@ -125,7 +125,6 @@ public class PersonalDataController extends BaseController implements Initializa
         // Filter out the entries that don't contain the entered text
         ObservableList<PersonalDataList> subentries = FXCollections.observableArrayList();
         for (PersonalDataList entry : tblData.getItems()) {
-
             boolean match = true;
             String entryText = entry.getName();
             int entryint = entry.getId();
@@ -141,11 +140,14 @@ public class PersonalDataController extends BaseController implements Initializa
             if (match) {
                 PersonalDataList personalData = new PersonalDataList();
                 personalData.setId(entryint);
+
                 personalData.setName(entry.getName());
                 personalData.setBVN(entry.getBVN());
                 personalData.setPhone_no(entry.getPhone_no());
                 personalData.setState(entry.getState());
+                personalData.setUser_type(entry.getUser_type());
                 subentries.add(personalData);
+
             }
         }
         tblData.setItems(subentries);

@@ -7,7 +7,7 @@
 
 
     <variable
-            name="logname" value="${user.home}/BMAC_IMS/logs/IMS"/>
+            name="logname" value="${user.home}/FARMER_REGISTRATION/logs"/>
 
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
