@@ -248,7 +248,7 @@ public class DisbursementController extends BaseController implements Initializa
 
 
         try {
-            List<AgroInputDisbursed> allData = disbursementManager.findAll();
+            List<AgroInputDisbursed> allData = disbursementManager.findAllByUserType("user");
             //List<FarmData> allData = farmDataManager.findAll();
             for (AgroInputDisbursed eachData : allData) {
                 try {

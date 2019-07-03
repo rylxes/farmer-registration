@@ -63,12 +63,9 @@ public class AgroInputDisbursed extends AppModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "input_generator")
     @SequenceGenerator(name = "input_generator", sequenceName = "input_seq", allocationSize = 1)
     @Column(name = "id", updatable = false, nullable = false)
-    Integer id;
+    private Integer id;
 
-//    @Id
-//    @Column(name = "id", nullable = false)
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private long id;
+
 
     @Column(name = "user_id")
     private Integer userId;
@@ -85,7 +82,7 @@ public class AgroInputDisbursed extends AppModel implements Serializable {
     @Nullable
     @NotFound(action = NotFoundAction.IGNORE)
     @ManyToOne
-    @JoinColumn(insertable = false, updatable = false, name = "user_Id")
+    @JoinColumn(insertable = false, updatable = false, name = "user_id")
     private User user;
 
     @Transient

@@ -17,6 +17,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -24,6 +25,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -55,7 +57,7 @@ public class FarmDataController extends BaseController implements Initializable 
 
 
     @FXML
-    private AnchorPane acSupplierMainContent;
+    private AnchorPane acContent;
     @FXML
     private TextField tfSearch;
     @FXML
@@ -82,6 +84,16 @@ public class FarmDataController extends BaseController implements Initializable 
 
     }
 
+    private final static int rowsPerPage = 30;
+    private Node createPage(int pageIndex) {
+
+        int fromIndex = pageIndex * rowsPerPage;
+        int toIndex = Math.min(fromIndex + rowsPerPage, myDataDetails.size());
+        tblData.setItems(FXCollections.observableArrayList(myDataDetails.subList(fromIndex, toIndex)));
+
+        return new BorderPane(tblData);
+    }
+
     public void initialize(URL location, ResourceBundle resources) {
         loadTbl();
         TableColumn name = new TableColumn("Name");
@@ -106,6 +118,16 @@ public class FarmDataController extends BaseController implements Initializable 
                 search(oldValue, newValue);
             }
         });
+
+
+        Pagination pagination = new Pagination((myDataDetails.size() / rowsPerPage + 1), 0);
+        pagination.setPageFactory(this::createPage);
+
+        AnchorPane.setTopAnchor(pagination, 10.0);
+        AnchorPane.setRightAnchor(pagination, 10.0);
+        AnchorPane.setBottomAnchor(pagination, 10.0);
+        AnchorPane.setLeftAnchor(pagination, 10.0);
+        acContent.getChildren().addAll(pagination);
 
     }
 
@@ -233,7 +255,7 @@ public class FarmDataController extends BaseController implements Initializable 
 
 
         try {
-            List<FarmData> allData = farmDataManager.findAll();
+            List<FarmData> allData = farmDataManager.findAllByUserType("user");
             for (FarmData eachData : allData) {
 
                 try {

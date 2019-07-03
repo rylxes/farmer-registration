@@ -72,10 +72,10 @@ public class FarmerRegistrationApplication extends Application {
 //            fXMLLoader.setControllerFactory(springContext::getBean);
 //            fXMLLoader.load(this.getClass().getResource(ApplicationController.PATH_FXML).openStream());
 
-            WindowsUtils.openNewWindow(primaryStage, LoginController.PATH_FXML, "Login", LoginController.PATH_ICON, null);
-            //WindowsUtils.openNewWindow(primaryStage, FarmDataController.PATH_FXML, "Farm Data", FarmDataController.PATH_ICON, null);
+           WindowsUtils.openNewWindow(primaryStage, LoginController.PATH_FXML, "Login", LoginController.PATH_ICON, null);
+           // WindowsUtils.openNewWindow(primaryStage, FarmDataController.PATH_FXML, "Farm Data", FarmDataController.PATH_ICON, null);
            // WindowsUtils.openNewWindow(primaryStage, ApplicationController.PATH_FXML, "Maisatech Nig Ltd", ApplicationController.PATH_ICON, null);
-           // WindowsUtils.openNewWindow(primaryStage, PersonalDataController.PATH_FXML, "Personal Data", PersonalDataController.PATH_ICON, null);
+           //WindowsUtils.openNewWindow(primaryStage, PersonalDataController.PATH_FXML, "Personal Data", PersonalDataController.PATH_ICON, null);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

@@ -6,6 +6,7 @@ import com.register.farmerregistration.local.entities.PersonalData;
 import com.register.farmerregistration.local.managers.PersonalDataManager;
 import com.register.farmerregistration.util.WindowsUtils;
 import com.register.farmerregistration.util.table.PersonalDataList;
+import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -15,6 +16,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -22,10 +24,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Callback;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,11 +51,11 @@ import static com.register.farmerregistration.FarmerRegistrationApplication.spri
 @Slf4j
 @Controller
 public class PersonalDataController extends BaseController implements Initializable {
-
+    private Pagination pagination;
     public static final String PATH_ICON = WindowsUtils.ICON_APP_PATH;
     public static final String PATH_FXML = "/fxml/data-gathering/PersonalData.fxml";
     @FXML
-    private AnchorPane acSupplierMainContent;
+    private AnchorPane acContent;
     @FXML
     private TextField tfSearch;
     @FXML
@@ -77,7 +82,20 @@ public class PersonalDataController extends BaseController implements Initializa
 
     }
 
+    private final static int rowsPerPage = 30;
+    private Node createPage(int pageIndex) {
+
+        int fromIndex = pageIndex * rowsPerPage;
+        int toIndex = Math.min(fromIndex + rowsPerPage, myDataDetails.size());
+        tblData.setItems(FXCollections.observableArrayList(myDataDetails.subList(fromIndex, toIndex)));
+
+        return new BorderPane(tblData);
+    }
+
+
     public void initialize(URL location, ResourceBundle resources) {
+
+
         loadTbl();
         TableColumn name = new TableColumn("Name");
         name.setCellValueFactory(
@@ -106,6 +124,17 @@ public class PersonalDataController extends BaseController implements Initializa
                 search(oldValue, newValue);
             }
         });
+
+
+        Pagination pagination = new Pagination((myDataDetails.size() / rowsPerPage + 1), 0);
+        pagination.setPageFactory(this::createPage);
+
+        AnchorPane.setTopAnchor(pagination, 10.0);
+        AnchorPane.setRightAnchor(pagination, 10.0);
+        AnchorPane.setBottomAnchor(pagination, 10.0);
+        AnchorPane.setLeftAnchor(pagination, 10.0);
+        acContent.getChildren().addAll(pagination);
+
 
     }
 
@@ -231,6 +260,7 @@ public class PersonalDataController extends BaseController implements Initializa
 
 
     }
+
 
     public void showDetails() {
 
