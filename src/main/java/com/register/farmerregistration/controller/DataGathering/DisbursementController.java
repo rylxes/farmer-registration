@@ -91,7 +91,7 @@ public class DisbursementController extends BaseController implements Initializa
 
         TableColumn category = new TableColumn("Name");
         category.setCellValueFactory(
-                new PropertyValueFactory<>("category"));
+                new PropertyValueFactory<>("name"));
 
         TableColumn input_type = new TableColumn("Input Type");
         input_type.setCellValueFactory(

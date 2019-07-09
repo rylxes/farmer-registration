@@ -13,7 +13,7 @@ import java.util.List;
 */
 @Component
 @EntityAnnotation(entityClass = AgroInputDisbursed.class)
-public class AgroInputDisbursedManager extends BaseManager<AgroInputDisbursed, Long, AgroInputDisbursedRepository> {
+public class AgroInputDisbursedManager extends BaseManager<AgroInputDisbursed, Long> {
 
 	private AgroInputDisbursedRepository agroInputDisbursedRepository;
 

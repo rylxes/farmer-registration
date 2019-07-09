@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 */
 @Component
 @EntityAnnotation(entityClass = AgroInputCategory.class)
-public class AgroInputCategoryManager extends BaseManager<AgroInputCategory, Long, AgroInputCategoryRepository> {
+public class AgroInputCategoryManager extends BaseManager<AgroInputCategory, Long> {
 
 	private AgroInputCategoryRepository agroInputCategoryRepository;
 

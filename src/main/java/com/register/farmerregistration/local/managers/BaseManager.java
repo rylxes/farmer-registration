@@ -27,7 +27,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-public abstract class BaseManager<T, V, S extends BaseRepository<T, V>> {
+public abstract class BaseManager<T, V> {
 
     private BaseRepository<T, V> repo;
     private EntityManager centityManager;
@@ -66,7 +66,6 @@ public abstract class BaseManager<T, V, S extends BaseRepository<T, V>> {
         Pageable pageable = PageRequest.of(page, pageSize);
         return repo.findAll(pageable).getContent();
     }
-
 
 
     public boolean replace(T model) {
@@ -190,7 +189,6 @@ public abstract class BaseManager<T, V, S extends BaseRepository<T, V>> {
             return false;
         }
     }
-
 
     public T saveModel(T model) {
         try {

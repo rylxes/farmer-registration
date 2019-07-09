@@ -16,7 +16,7 @@ import java.util.List;
 @Slf4j
 @EntityAnnotation(entityClass = User.class)
 @Component("localUserManager")
-public class UserManager extends BaseManager<User, Integer, UserRepository> {
+public class UserManager extends BaseManager<User, Integer> {
 
     private UserRepository userRepository;
 

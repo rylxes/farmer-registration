@@ -1,8 +1,10 @@
 package com.register.farmerregistration.local.entities;
 
 
+import com.register.farmerregistration.local.generators.Identifiable;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.springframework.lang.Nullable;
@@ -19,7 +21,7 @@ import java.io.Serializable;
 @Setter
 @ToString
 @Table(name = "farm_data")
-public class FarmData extends AppModel implements Serializable {
+public class FarmData extends AppModel implements Serializable, Identifiable<Integer> {
     /**
      *
      */
@@ -31,12 +33,20 @@ public class FarmData extends AppModel implements Serializable {
     @SuppressWarnings("unused")
     private static final long serialVersionUID1 = 1L;
 
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "farm_generator")
-    @SequenceGenerator(name = "farm_generator", sequenceName = "farm_seq", allocationSize = 1)
+    @GenericGenerator(
+            name = "GEN_SEQ",
+            strategy = "com.register.farmerregistration.local.generators.AssignedSequenceStyleGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "GEN_SEQUENCE"),
+                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "100000"),
+                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
+            }
+    )
+    @GeneratedValue(generator = "GEN_SEQ")
     @Column(name = "id", updatable = false, nullable = false)
-    Integer id;
+    private Integer id;
+
 
 
     @Column(name = "user_id")
@@ -57,7 +67,8 @@ public class FarmData extends AppModel implements Serializable {
     private String coord_d_longitude;
     private String coord_d_latitude;
     private String soil_type;
-    private String status;
+
+    private String status = "Unverified";
 
 
     @Nullable

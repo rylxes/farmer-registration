@@ -80,7 +80,7 @@ public class ComboItems {
                     // replace this with approquiate implementation of parsing function
                     // or lookup function
                     ItemContent locCont = __comboItem.getSelectionModel().getSelectedItem();
-                    return new ItemContent(locCont.getId(), string);
+                    return new ItemContent(locCont.getIdInt(), string);
                 }
             });
 
@@ -350,7 +350,7 @@ public class ComboItems {
             this.categoryCombo.getSelectionModel().select(0);
             if ((categoryID != 0)) {
                 AgroInputCategory theCategories = categoryManager.findById(Long.valueOf(categoryID));
-                this.categoryCombo.getSelectionModel().select(new ItemContent(((int) theCategories.getId()), theCategories.getCategory_name()));
+                this.categoryCombo.getSelectionModel().select(new ItemContent((theCategories.getId()), theCategories.getCategory_name()));
             } else {
                 this.categoryCombo.getSelectionModel().select(0);
             }

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 @EntityAnnotation(entityClass = Contact.class)
 
-public class ContactManager extends BaseManager<Contact, Long, ContactRepository> {
+public class ContactManager extends BaseManager<Contact, Long> {
 
 	private ContactRepository contactRepository;
 

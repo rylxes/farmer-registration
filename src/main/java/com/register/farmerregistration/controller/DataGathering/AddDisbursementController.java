@@ -92,7 +92,7 @@ public class AddDisbursementController implements Initializable {
             dataH.setQuantity(Integer.valueOf(quantity.getText()));
             dataH.setUnit(comboItems.changeComboBox(unit));
 //            dataH.setSoil_type(soil_type.getText());
-//            dataH.setUserId(comboItems.changeComboBoxLong(userId));
+           dataH.setUserId(comboItems.changeComboBoxInt(userId));
             disbursedDataManager.save(dataH, btnSave);
 
 

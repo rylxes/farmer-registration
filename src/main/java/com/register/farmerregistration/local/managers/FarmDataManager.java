@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 @EntityAnnotation(entityClass = FarmData.class)
 
-public class FarmDataManager extends BaseManager<FarmData, Integer, FarmDataRepository> {
+public class FarmDataManager extends BaseManager<FarmData, Integer> {
 
 
     private FarmDataRepository farmDataRepository;

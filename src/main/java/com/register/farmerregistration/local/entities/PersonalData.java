@@ -1,8 +1,10 @@
 package com.register.farmerregistration.local.entities;
 
 
+import com.register.farmerregistration.local.generators.Identifiable;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.envers.Audited;
@@ -21,7 +23,7 @@ import java.io.Serializable;
 @Setter
 @ToString
 @Table(name = "personal_data")
-public class PersonalData extends AppModel implements Serializable {
+public class PersonalData extends AppModel implements Serializable, Identifiable<Integer> {
 
 
     public enum titleEnum {
@@ -39,10 +41,18 @@ public class PersonalData extends AppModel implements Serializable {
     // Data members
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "data_generator")
-    @SequenceGenerator(name = "data_generator", sequenceName = "data_seq", allocationSize = 1)
+    @GenericGenerator(
+            name = "GEN_SEQ",
+            strategy = "com.register.farmerregistration.local.generators.AssignedSequenceStyleGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "GEN_SEQUENCE"),
+                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "100000"),
+                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
+            }
+    )
+    @GeneratedValue(generator = "GEN_SEQ")
     @Column(name = "id", updatable = false, nullable = false)
-    Integer id;
+    private Integer id;
 
     @Column(name = "user_id")
     private Integer userId;

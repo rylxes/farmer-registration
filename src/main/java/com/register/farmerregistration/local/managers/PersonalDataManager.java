@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 @EntityAnnotation(entityClass = PersonalData.class)
 
-public class PersonalDataManager extends BaseManager<PersonalData, Integer, PersonalDataRepository> {
+public class PersonalDataManager extends BaseManager<PersonalData, Integer> {
 
 
     private PersonalDataRepository personalDataRepository;

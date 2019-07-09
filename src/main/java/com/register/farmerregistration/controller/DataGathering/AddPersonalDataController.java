@@ -5,6 +5,7 @@ import com.digitalpersona.uareu.Reader;
 import com.digitalpersona.uareu.ReaderCollection;
 import com.digitalpersona.uareu.UareUException;
 import com.digitalpersona.uareu.UareUGlobal;
+import com.register.farmerregistration.util.lambdaworks.Hash;
 import fingerprint.scanner.*;
 import com.register.farmerregistration.local.entities.PersonalData;
 import com.register.farmerregistration.local.entities.User;
@@ -35,6 +36,7 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 
 /**
@@ -100,6 +102,10 @@ public class AddPersonalDataController extends JPanel
         try {
             User user = new User();
             user.setName(name.getText());
+            user.setEmail(UUID.randomUUID().toString());
+            user.setPassword(Hash.make("password"));
+            user.setUserType("user");
+
             User result = userManager.saveModel(user);
             if (result != null) {
                 PersonalData personalDataH = new PersonalData();
@@ -163,7 +169,7 @@ public class AddPersonalDataController extends JPanel
         try {
 
 
-             thePersonaData = personalDataManager.findById(this.dataID);
+            thePersonaData = personalDataManager.findById(this.dataID);
 
             usrId = thePersonaData.getUserId();
             name.setText(thePersonaData.getName());
@@ -191,7 +197,7 @@ public class AddPersonalDataController extends JPanel
     public void addSupplierStage(Stage stage) {
     }
 
-    public void start(){
+    public void start() {
         System.out.println("Started");
         createAndShowGUI();
 //        SwingUtilities.invokeLater(new Runnable() {
@@ -202,7 +208,7 @@ public class AddPersonalDataController extends JPanel
 //        });
     }
 
-    private static final long serialVersionUID=1;
+    private static final long serialVersionUID = 1;
 
     private static final String ACT_SELECTION = "selection";
     private static final String ACT_CAPTURE = "capture";
@@ -213,13 +219,13 @@ public class AddPersonalDataController extends JPanel
     private static final String ACT_PHOTO = "Take Photo";
     private static final String ACT_EXIT = "exit";
 
-    private JDialog   m_dlgParent;
+    private JDialog m_dlgParent;
     private JTextArea m_textReader;
 
     private ReaderCollection m_collection;
     private Reader m_reader;
 
-    private AddPersonalDataController(){
+    private AddPersonalDataController() {
         final int vgap = 5;
         final int width = 380;
 
@@ -294,65 +300,52 @@ public class AddPersonalDataController extends JPanel
         setOpaque(true);
     }
 
-    public void actionPerformed(java.awt.event.ActionEvent e){
-        if(e.getActionCommand().equals(ACT_SELECTION)){
+    public void actionPerformed(java.awt.event.ActionEvent e) {
+        if (e.getActionCommand().equals(ACT_SELECTION)) {
             m_reader = Selection.Select(m_collection);
-            if(null != m_reader){
+            if (null != m_reader) {
                 m_textReader.setText(m_reader.GetDescription().name);
-            }
-            else{
+            } else {
                 m_textReader.setText("");
             }
-        }
-        else if(e.getActionCommand().equals(ACT_CAPTURE)){
-            if(null == m_reader){
+        } else if (e.getActionCommand().equals(ACT_CAPTURE)) {
+            if (null == m_reader) {
                 MessageBox.Warning("Reader is not selected");
-            }
-            else{
+            } else {
                 Capture.Run(m_reader, false);
             }
-        }
-        else if(e.getActionCommand().equals(ACT_STREAMING)){
-            if(null == m_reader){
+        } else if (e.getActionCommand().equals(ACT_STREAMING)) {
+            if (null == m_reader) {
                 MessageBox.Warning("Reader is not selected");
-            }
-            else{
+            } else {
                 Capture.Run(m_reader, true);
             }
-        }
-        else if(e.getActionCommand().equals(ACT_VERIFICATION)){
-            if(null == m_reader){
+        } else if (e.getActionCommand().equals(ACT_VERIFICATION)) {
+            if (null == m_reader) {
                 MessageBox.Warning("Reader is not selected");
-            }
-            else{
+            } else {
                 Verification.Run(m_reader);
             }
-        }
-        else if(e.getActionCommand().equals(ACT_IDENTIFICATION)){
-            if(null == m_reader){
+        } else if (e.getActionCommand().equals(ACT_IDENTIFICATION)) {
+            if (null == m_reader) {
                 MessageBox.Warning("Reader is not selected");
-            }
-            else{
+            } else {
                 Identification.Run(m_reader);
             }
-        }
-        else if(e.getActionCommand().equals(ACT_ENROLLMENT)){
-            if(null == m_reader){
+        } else if (e.getActionCommand().equals(ACT_ENROLLMENT)) {
+            if (null == m_reader) {
                 MessageBox.Warning("Reader is not selected");
-            }
-            else{
+            } else {
                 Enrollment.Run(m_reader);
             }
-        }
-        else if(e.getActionCommand().equals(ACT_PHOTO)){
+        } else if (e.getActionCommand().equals(ACT_PHOTO)) {
             TakePicture.Run();
-        }
-        else if(e.getActionCommand().equals(ACT_EXIT)){
+        } else if (e.getActionCommand().equals(ACT_EXIT)) {
             m_dlgParent.setVisible(false);
         }
     }
 
-    private void doModal(JDialog dlgParent){
+    private void doModal(JDialog dlgParent) {
         m_dlgParent = dlgParent;
         m_dlgParent.setContentPane(this);
         m_dlgParent.pack();
@@ -366,29 +359,28 @@ public class AddPersonalDataController extends JPanel
         AddPersonalDataController paneContent = new AddPersonalDataController();
 
         //initialize capture library by acquiring reader collection
-        try{
+        try {
             paneContent.m_collection = UareUGlobal.GetReaderCollection();
-        }
-        catch(UareUException e) {
+        } catch (UareUException e) {
             MessageBox.DpError("UareUGlobal.getReaderCollection()", e);
             return;
         }
 
         //run dialog
-        JDialog dlg = new JDialog((JDialog)null, "Maisatech BioCapture", true);
+        JDialog dlg = new JDialog((JDialog) null, "Maisatech BioCapture", true);
         paneContent.doModal(dlg);
 
 
         //release capture library by destroying reader collection
-        try{
+        try {
             UareUGlobal.DestroyReaderCollection();
-        }
-        catch(UareUException e) {
+        } catch (UareUException e) {
             MessageBox.DpError("UareUGlobal.destroyReaderCollection()", e);
         }
     }
+
     @FXML
-    private void btnCaptureOnAction(ActionEvent event){
+    private void btnCaptureOnAction(ActionEvent event) {
         System.out.println("Finger scan starting..");
         start();
     }
